@@ -55,15 +55,13 @@ fi
 export LC_ALL=C
 
 export PATH=$PATH:/opt/electriccloud/electriccommander/bin:/opt/ecloud/i686_Linux/bin
-export PATH=$PATH:/usr/local/tools/i686_Linux/bin
 
 # Set some history options
 shopt -s histappend
 export HISTCONTROL=ignoredups:erasedups:ignorespace
 export HISTSIZE=5000
 export HISTTIMEFORMAT='%a %T '
-export LESS='-i -e -M -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
-#export ARCH=i686_Linux
+export LESS='-R -i -e -M -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
 
 export EC2_HOME=~/.ec2
 export PATH=$PATH:$EC2_HOME/bin
@@ -77,9 +75,10 @@ export GOOS=linux
 export GOARCH=amd64
 #export GOBIN=
 
-export PATH=$PATH:/usr/local/cuda/bin
 export PATH=$PATH:/u01/akushner/build/depot_tools
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/cuda/lib
+export VIMRUNTIME=/usr/share/vim/vim72
+export VIM=/u01/akushner/etc/init/vim
+
 
 # vim:tw=70 ft=sh sw=4

@@ -1,0 +1,238 @@
+" Some good info on .vimrc files
+"    http://items.sjbach.com/319/configuring-vim-right
+"    http://www.derekwyatt.org/vim/the-vimrc-file/the-absolute-bare-minimum
+
+"echo 'executing ~/.vimrc'
+"set verbose+=1				" show which vimrc files are exec'd
+"
+" Quick timeouts on key combinations.
+set timeoutlen=300
+
+"so ~/.vim/vimrc.wordlist 
+
+" vim clojure stuff
+let vimclojure#NailgunClient = "/u01/akushner/lisp/vimclojure-2.1.1/ng"
+let clj_want_gorilla = 1
+let clj_paren_rainbow = 1
+
+" calc from the : line
+command! -nargs=+ Calc :py print <args>
+py from math import *
+
+let mapleader = ","
+
+map <leader>F !}fmt -70
+map <leader>G !G perl -MText::Autoformat -e'autoformat  {left=>1, right=>65}'
+map <leader>f !} perl -MText::Autoformat -e'autoformat  {left=>1, right=>65}'
+
+" allow backspacing over beginning of line
+set backspace=indent,eol,start
+
+" Catch trailing whitespace
+set listchars=tab:>-,trail:-
+nmap <silent> <leader>s :set nolist!<CR>
+
+set virtualedit=all
+
+" Search options (turn of hlsearch with <leader n>
+set hlsearch
+set ignorecase 
+set smartcase
+"set incsearch
+nmap <silent> <leader>n :silent :nohlsearch<CR>
+
+set printoptions=paper:letter,syntax:n,duplex:on
+set laststatus=2
+
+set nodigraph
+set wrapscan
+
+" annoyed with paste -- this is a hack so I can paste
+" buffers
+map np :set paste! paste?<CR>
+
+" Customize display {{{
+" lastline    When included, as much as possible of the last line
+"             in a window will be displayed.  When not included, a
+"             last line that doesn't fit is replaced with "@" lines.
+" uhex        Show unprintable characters hexadecimal as <xx>
+"             instead of using ^C and ~C.
+set display+=lastline
+set display+=uhex
+
+
+iab aksig Aaron Kushner<CR>Bitkeeper Sales Engineer<CR>415-401-8808 (Tu,Th)<CR>650-654-1255 (M,W,F)
+iab plm Please let me know if you need help setting up or configuring bk.
+iab chis chihuahuas
+iab Yruler  1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890
+
+" Check for modelines
+" ============================================================
+" Options() - used to display some important option values
+" within the status line (see below at "set statusline".
+" ============================================================
+" 
+" Statusline without colors and display of options -
+" but with percentage at end:
+" set statusline=Vim-%{Version()} [%02n]\ %(%M%R%H%)\ %F\ %=<%l,%c%V>\ %P
+"
+" Damien WYART <wyart@iie.cnam.fr> [000329]:
+" set statusline=%<%f%=\ [%1*%M%*%n%R%H]\ \ %-25(%3l,%c%03V\ \ %P\ (%L)%)%12o'%03b'
+" hi  User1 term=inverse,bold cterm=inverse,bold ctermfg=red
+
+function! Options()
+"           let opt="Opt:"
+            let opt=""
+  " autoindent
+" if &ai|   let opt=opt." ai"   |else|let opt=opt." noai"   |endif
+  if &ai|   let opt=opt." ai"   |endif
+  "  expandtab
+" if &et|   let opt=opt." et"   |else|let opt=opt." noet"   |endif
+  if &et|   let opt=opt." et"   |endif
+  "  hlsearch
+" if &hls|  let opt=opt." hls"  |else|let opt=opt." noet"   |endif
+  if &hls|  let opt=opt." hls"  |endif
+  "  paste
+" if &paste|let opt=opt." paste"|else|let opt=opt." nopaste"|endif
+  if &paste|let opt=opt." paste"|endif
+  "  shiftwidth
+  if &shiftwidth!=8|let opt=opt." sw=".&shiftwidth|endif
+  "  textwidth - show always!
+                    let opt=opt." tw=".&tw
+"   let opt=opt."\[".&lines.",".&columns."\]"
+  return opt
+endfunction
+" ============================================================
+" Colorizing that status lines!  Whee!  :-)
+" ============================================================
+" 
+" Statusline without colors and display of options -
+" but with percentage at end:
+" set statusline=Vim-%{Version()} [%02n]\ %(%M%R%H%)\ %F\ %=<%l,%c%V>\ %P
+"set   statusline=Vim-%{Version()}\ %{getcwd()}\ \ %1*[%02n]%*\ %(%M%R%H%)\ %2*%F%*\ %=%{}\ %3*<%l,%c%V>%*
+set   statusline=%{getcwd()}\ \ %1*[%02n]%*\ %(%M%R%H%)\ %2*%F%*\ %=%{Options()}\ %3*<%l,%c%V>%*
+" Text between "%{" and "%}" is being evaluated and thus suited for functions.
+" Here I will use the function "Options()" as defined below to show the
+" values of some (local) options..
+" The strings "%N*" unto "%*" correspond to the highlight group "UserN":
+"       User1: color for buffer number
+hi    User1 cterm=NONE    ctermfg=red    ctermbg=white  guifg=red    guibg=white
+"       User2: color for filename
+hi    User2 cterm=NONE    ctermfg=green  ctermbg=white  guifg=green  guibg=white
+"       User3: color for position
+hi    User3 cterm=NONE    ctermbg=blue   ctermbg=white  guifg=blue   guibg=white
+
+fu! Version()
+        return version
+endf
+
+" Allow switching edited buffers without saving
+set hidden
+set modeline
+
+" Bash-like filename completion
+set wildmenu
+set wildmode=list:longest
+set wildignore=*.o,*.fasl,*.swp,*.tmp
+
+" If in `Insert', `Replace' or `Visual' mode put a message on the last line
+set showmode
+set ts=8 
+set sw=4
+set ruler
+set nobackup writebackup     	 " backup made, deleted afterwards
+
+"set notitle icon
+set title
+
+set helpheight=0
+set mouse=a
+"set mouse=nvc		" in insert mode, cursor stays during highlighting
+"set keywordprg=webster
+set showmatch
+set errorformat=%f:%l:%m,\"%f\"\\,\ line\ %l\:\ %m
+set suffixes=.bak,~,.o,.info,.aux,.dvi,.bbl,.log,.blg,
+set scrolloff=2
+set shortmess=otix
+set showcmd
+set shell=/bin/bash
+"set shellpipe=\|&\ tee
+set visualbell
+set cpoptions=BFst$
+set sidescroll=1
+set updatecount=100 updatetime=3600000		" saves power on notebooks
+set ttyfast lazyredraw
+"   for formatting comments, and replies to emails and posts
+set comments+=b:#,:%,:XCOMM,n:>,fb:-,nb:\"
+set cmdheight=2			" prevents most "type return" messages
+set errorfile=/tmp/errors.vim
+
+"   for word completion
+imap <Insert> <C-P>
+imap <Del> <C-N>
+
+"   enable Shift-Tab in vim's file name completion (:help cmdline-completion)
+cmap <Esc>[1~ <C-P>
+
+"
+"   Syntax highlighting
+"
+" let mysyntaxfile = "~/.vim.mysyntax"   	" my own syntax highlight additions
+syntax on
+filetype on
+filetype plugin on
+filetype indent on
+
+" remember marks, 5 lines per buffer, file buffer list, histories in .viminfo
+set viminfo='50,\"1000,%,:1000,n~/.viminfo
+set history=1000
+
+" Line continuation is used here, remove 'C' from 'cpoptions'
+"let s:cpo_save = &cpo
+"set cpo&vim
+" let s:line1 = getline(1)
+" if s:line1 =~ '^#.*\-\*\-tcl\-\*\-'
+  " set ft=tcl
+" endif
+
+" Restore 'cpoptions'
+"let &cpo = s:cpo_save
+"
+"unlet s:cpo_save s:line1
+"
+
+" Who needs .gvimrc?
+if has('gui_running')
+  set encoding=utf-8
+  "set guifont=Monospace\ Bold\ 9
+  set guifont=Bitstream\ Vera\ Sans\ Mono\ 9
+  " Turn off toolbar and menu
+"  set guioptions-=T
+"  set guioptions-=m
+  set guioptions=acm
+  set guicursor=n-v-c:block-Cursor-blinkon0
+  set guicursor+=ve:ver35-Cursor
+  set guicursor+=o:hor50-Cursor
+  set guicursor+=i-ci:ver25-Cursor
+  set guicursor+=r-cr:hor20-Cursor
+  set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
+  colorscheme inkpot
+endif
+
+autocmd BufRead *.qcf set filetype=lisp
+autocmd BufRead qpx.inc set filetype=make
+autocmd BufRead letter* set filetype=mail
+autocmd Filetype mail set fo -=l autoindent spell
+
+autocmd Filetype sh set ts=4 shiftwidth=2 expandtab
+autocmd Filetype lisp,ruby,xml,html set ts=4 shiftwidth=2 expandtab
+autocmd Filetype xml,xslt,diff,ruby color desert
+autocmd Filetype xml,xslt,diff,ruby set expandtab
+autocmd BufReadPre viper,.viper set filetype=lisp
+
+" Indent XML readably
+" Should only work on regions
+function! DoPrettyXML()
+  1,$!xmllint --format --recover -
+endfunction
+command! PrettyXML call DoPrettyXML()
