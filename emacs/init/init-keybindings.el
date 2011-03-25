@@ -1,0 +1,13 @@
+(global-set-key [f1] 'help-command)
+(global-set-key [f2] 'call-last-kbd-macro)
+(global-set-key [f4] 'goto-line)
+(global-set-key [f3] 'shell)
+(global-set-key [f5] 'query-replace)
+(global-set-key [f6] 'switch-to-buffer)
+(global-set-key [f7] 'hippie-expand)
+(global-set-key [f8] 'ispell)
+(global-set-key [f10] 'repeat-complex-command)
+(global-set-key "\C-cg" 'goto-line)
+(global-set-key [?\C-.] 'call-last-kbd-macro)
+
+(define-key global-map "\C-x\C-g" 'comment-region)

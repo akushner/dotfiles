@@ -1,0 +1,19 @@
+#!/bin/sh
+# $Id: mkinitlinks,v 1.3 2004/02/15 02:22:08 friedman Exp $
+
+set -x
+
+cd "$HOME" || exit 1
+
+rm -f .bash_login .bashrc .emacs .esrc .inputrc .plan
+
+ln -s $sinit/bash/main/logout.bash          .bash_logout
+ln -s $sinit/bash/main/bashrc.bash          .bashrc
+ln -s $sinit/bash/main/bash_profile.bash    .bash_profile
+ln -s $sinit/emacs/dot.emacs                .emacs
+ln -s $sinit/share/inputrc                  .inputrc
+ln -s $sinit/share/plan                     .plan
+
+test -f .hushlogin || : > .hushlogin
+
+# eof

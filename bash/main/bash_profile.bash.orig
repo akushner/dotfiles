@@ -1,0 +1,317 @@
+### When bash is invoked as an interactive login shell, it looks for 
+###
+### ~/.bash_profile, ~/.bash_login, and ~/.profile, in that order.
+###
+### /bin/sh simply looks at ~/.profile
+###
+### %W%
+###
+
+if [ -f ~/.debug ]; then
+	echo "in .bash_profile"
+fi
+
+# ===========
+# Bash-profile
+# ===========
+
+umask 022    
+# rw-r--r-- files
+# rwxr-xr-x directories
+
+#
+# Startup file for bash login shells.
+#
+
+if [ -n "$PS1" ]; then
+	PS1='\u@\h(\#)\$ '
+	IGNOREEOF=10
+fi
+
+###
+### VARIABLES
+###
+
+PATH="/bin:/usr/bin:/sbin:/usr/sbin:/usr/local/bin:/usr/ucb:"
+
+UNAME_OS=`uname -s`
+case ${UNAME_OS} in
+        SunOS)  UNAME_SVERSION=`uname -r | awk -F. '{print $1}'`;;
+        HP-UX)  UNAME_SVERSION=`uname -r | awk -F. '{print $2}'`;;
+        Linux)  UNAME_SVERSION=`uname -r | awk -F. '{print $1}'`;;
+esac
+
+BASENAME_SHELL=`basename $SHELL`
+
+export UNAME_OS UNAME_SVERSION
+
+
+###
+###   Try to use bash(1) or sh(1), if possible
+###
+
+exec_my_shell() 
+{
+
+
+        SHELLS='bash'
+
+        for s in $SHELLS; do
+                for p in `echo $PATH | sed 's/:/ /g'`; do
+                        test -f ${p}/${s} && SHELL_CMD=${p}/${s} && break
+                done
+                if [ -n "$SHELL_CMD" ]; then
+                        SHELL_OPTS='-login'
+                        SHELL=$SHELL_CMD
+                        exec $SHELL $SHELL_OPTS
+                        #$SHELL $SHELL_OPTS
+                fi  
+        done
+        BASENAME_SHELL=bourne
+
+}   
+
+
+if [ "$BASENAME_SHELL" = "sh" ]; then
+    exec_my_shell
+fi
+
+###
+### Environment
+###
+
+MANPAGER='more -c -s'
+PAGER='more -c -s'
+HOST=`uname -n`
+EDITOR=vi
+LS_COLORS='di=33'
+MANPATH=/usr/man:/usr/dt/man:/usr/openwin/man:/usr/local/man
+OPENWINHOME=/usr/openwin
+PRINTER=lp
+LPDEST=lp
+#TERM=xterm
+WHOAMI=`whoami`
+UNAME_RELEASE=`uname -r`
+UNAME_VERSION=`uname -v`
+UNAME_MACHINE=`uname -m`
+
+case ${UNAME_OS}:${UNAME_RELEASE}:${UNAME_VERSION}:${UNAME_MACHINE} in
+    AIX:*:4:* )         OS_TYPE=bsd;     OS_ARCH=aix4-powerpc;;
+    BSD/OS:*:*:i[3456]86 )  OS_TYPE=bsd;     OS_ARCH=bsdos-x86;;
+    BSD/OS:*:*:sun4* )      OS_TYPE=bsd;     OS_ARCH=bsdos-sparc;;
+    FreeBSD:*:*:i[3456]86 ) OS_TYPE=bsd;     OS_ARCH=freebsd-x86;;
+    GNU:*:*:i[3456]86 )     OS_TYPE=bsd;     OS_ARCH=gnu-x86;;
+    GNU:*:*:sun4* )     OS_TYPE=bsd;     OS_ARCH=gnu-sparc;;
+    HP-UX:*\.09\.*:*:9000/7?? | HP-UX:*\.09\.*:*:9000/8?[79] )
+                OS_TYPE=sysv;    OS_ARCH=hpux9-hppa1.1;;
+    HP-UX:*\.10\.*:*:9000/7?? | HP-UX:*\.10\.*:*:9000/8?[79] )
+                OS_TYPE=sysv;    OS_ARCH=hpux10-hppa1.1;;
+    IRIX*:5*:*:* )      OS_TYPE=sysv;    OS_ARCH=irix5-mips;;
+    IRIX*:6*:*:* )      OS_TYPE=sysv;    OS_ARCH=irix6-mips;;
+    Linux:*:*:i[3456]86 )   OS_TYPE=bsd;     OS_ARCH=linux-x86;;
+    Linux:*:*:sun4* )       OS_TYPE=bsd;     OS_ARCH=linux-sparc;;
+    NetBSD:*:*:i[3456]86 )  OS_TYPE=bsd;     OS_ARCH=netbsd-x86;;
+    NetBSD:*:*:sun4* )      OS_TYPE=bsd;     OS_ARCH=netbsd-sparc;;
+    OpenBSD:*:*:i[3456]86 ) OS_TYPE=bsd;     OS_ARCH=openbsd-x86;;
+    OpenBSD:*:*:sun4* )     OS_TYPE=bsd;     OS_ARCH=openbsd-sparc;;
+    SunOS:4*:*:aushp )      OS_TYPE=bsd;     OS_ARCH=auspex-sparc;;
+    SunOS:4*:*:sun4* )      OS_TYPE=bsd;     OS_ARCH=sunos4-sparc;;
+    SunOS:5*:*:sun4* )      OS_TYPE=sysv;    OS_ARCH=sunos5-sparc;;
+    *:*:*:* )           OS_TYPE=unknown; OS_ARCH=unknown-unknown;;
+esac
+
+###
+### Conditional Environment
+### 
+
+
+if [ -x /usr/local/bin/less -o -x /usr/bin/less ]; then
+    MANPAGER='less -s'
+    PAGER=less
+    LESS="-f -i -M -Q"
+    LESS='-i -e -M -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
+fi  
+
+if [ -x /usr/local/bin/vim -o -x /usr/bin/vim ]; then
+    EDITOR=vim
+fi  
+
+case ${UNAME_OS} in
+        SunOS)  /bin/stty erase ^?
+		export TERM=color_xterm
+		export SEPATH=/opt/RICHPse/examples:/opt/RICHPse/toptool              
+		;;
+	Linux) echo "Doing Linux specific configs"
+esac
+
+
+export MANPAGER PAGER HOST TERM LS_COLORS MANPATH LSF_ENVDIR
+export LM_PROJECT TERM WHOAMI UNAME_RELEASE 
+export UNAME_VERSION UNAME_MACHINE TERMINFO EDITOR OS_TYPE OS_ARCH
+
+###
+###  $PATH
+###
+
+PATH="$HOME/bin"
+
+for dir in \
+        $HOME/${UNAME_OS}.${UNAME_SVERSION}/bin \
+	/usr/java/jre1.3.1_01/bin/ \
+	/opt/gnome/bin \
+	/usr/java/jre/bin/ \
+	/usr/java/bin/ \
+        /usr/local/bin \
+	/usr/local/sbin \
+        /bin \
+        /usr/bin \
+        /opt/SUNWspro/bin \
+	/opt/openoffice.org1.9.79/program \
+        /etc \
+        /sbin \
+        /usr/etc \
+        /usr/sbin \
+        /usr/proc/bin \
+        /usr/local/etc \
+        /usr/local/adm/bin \
+        /usr/adm/bin \
+        /usr/bin/X11 \
+	/usr/X11R6/bin \
+        /usr/openwin/bin \
+        /usr/contrib/bin \
+        /usr/ucb \
+        /usr/ucb/bin \
+	/opt/Acrobat4/bin \
+	/usr/local/Acrobat4/bin \
+	/usr/local/jdk1.2.2/bin \
+        /usr/ccs/bin \
+	/opt/RICHPse/bin \
+        /usr/dt/bin
+
+do
+        if [ -d $dir ]
+        then
+                PATH=$PATH:$dir
+        fi
+done
+
+export PATH
+
+
+###
+###  $MANPATH
+###
+  
+
+MANPATH=""
+for mdir in \
+        /usr/man \
+        /usr/share/man \
+        /usr/dt/man \
+        /usr/openwin/share/man \
+        /opt/SUNWspro/man \
+        /usr/local/man
+do
+        if [ -d $mdir ]
+        then
+                MANPATH=$MANPATH:$mdir
+        fi
+done
+
+export MANPATH
+
+
+###
+###  Execute some commands for interactive logins & everything else
+###  Shell specific stuff
+###
+
+if [ -t 0 ]; then
+        #stty erase '^h' kill '^u' intr '^c' quit '^\' > /dev/null 2>&1
+        if [ $WHOAMI = "root" ]; then
+                PROMPT="#"
+        else
+                PROMPT="$"
+        fi 
+
+        if [ "$BASENAME_SHELL" = "bash" ]; then
+                PS1='[\u@\h \W]\$ '
+                PS2='${PROMPT} '
+                test -f $HOME/.bash_aliases && . $HOME/.bash_aliases
+        else
+                PS1='${LOGNAME}@${HOST}${PROMPT} '
+                PS2='${PROMPT} '
+        fi
+fi
+
+export PROMPT PS1 PS2
+
+test -f $HOME/.profile.`domainname` && . $HOME/.profile.`domainname`
+test -f $HOME/.bash_functions && . $HOME/.bash_functions
+
+LD_LIBRARY_PATH=/usr/local/lib
+
+export LD_LIBRARY_PATH
+
+INFORMIXDIR=/opt/informix
+if [ $HOST = "sf-cqa-app01.corp.wagerworks.com" \
+    -o $HOST = "sf-cqa-app02.corp.wagerworks.com" ]; then
+	INFORMIXSERVER=infxcqa
+elif [ $HOST = "sf-cint-app01.corp.wagerworks.com" ]; then
+	INFORMIXSERVER=infxcdev
+fi
+
+export INFORMIXDIR INFORMIXSERVER
+
+default_dir=/etc
+
+LOGIN_SHELL=true
+
+# If the user has her own init file, then use that one, else use the
+# canonical one.
+if [ -f ~/.bashrc ]; then
+	. ~/.bashrc
+elif [ -f ${default_dir}Bashrc ]; then
+	. ${default_dir}Bashrc;
+fi
+
+# =============
+# .bash_profile
+# =============
+
+if [ ! -d ~/.history ]; then
+	mkdir ~/.history
+fi
+
+HISTFILE=~/.history/history.$HOSTNAME
+HISTFILESIZE=5000
+HISTCONTROL=ignoreboth
+HISTSIZE=5000
+shopt -s histappend
+set bell-style audible
+set ignoreeof yes
+
+SHELL=${SHELL:-${BASH:-/bin/bash}}
+
+#
+# Bogus 1003.2 variables.  This should really be in /etc/profile
+#
+LOGNAME=${USER-$(whoami)}
+
+export HOME VISUAL EDITOR MAIL SHELL PATH TERM 
+export HISTFILESIZE HISTSIZE HISTFILE HISTCONTROL
+export PAGER TERMCAP MAIL MAILCHECK LOGNAME TZ
+
+#NNTPSERVER=206.13.28.144
+#NNTPSERVER=news
+NNTPSERVER=localhost
+
+PARINIT='rTbgqR B=.,?_A_a Q=_s>|'
+export PARINIT
+
+export USERNAME BASH_ENV PATH LD_LIBRARY_PATH 
+export NNTPSERVER
+
+export BK_LICENSE=ACCEPTED
+
+# vim:tw=70 ft=sh sw=4 ts=8

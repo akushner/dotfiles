@@ -1,0 +1,58 @@
+#!/bin/sh
+# Author: Noah Friedman <friedman@splode.com>
+# Created: 2004-02-10
+# Public domain
+
+# $Id: print-site-paths,v 1.2 2005/06/27 18:32:12 friedman Exp $
+
+# Commentary:
+
+# Generate a list of domain-name based and cpu-model-os pathnames for
+# inclusion in $PATH, for all directory prefixes specified on the command
+# line.
+#
+# These path names are not checked for existence; for that, feed these
+# results through cprintpath.
+
+# Code:
+
+hostname=${HOSTNAME-`hostname-fqdn`}
+machtype=${SINIT_MACHTYPE-`hosttype`}
+
+domain_list=`{ echo "$SINITDOMAIN"; echo "$hostname"; } | sed -n \
+  -e '/^$/d' \
+  -e H \
+  -e g \
+  -e 's/$/./' \
+  -e :l1 \
+  -e 's/^\(.*\)\(\n\)\([^.]*\)\./\3.\1\2/' \
+  -e 't l1' \
+  -e 's/\.\n//p' \
+  -e :l2 \
+  -e 's/\.[^.]*$//p' \
+  -e 't l2' \
+  -e 's/.*//' \
+  -e x`
+
+machtype_list=`echo "$SINIT_MACHTYPE" | sed -n \
+  -e p \
+  -e :l \
+  -e 's/\.[0-9][0-9]*$//p' \
+  -e 't l' \
+  -e 's/[0-9][0-9]*$//p' \
+  -e '/^[^-]*-[^-]*-[^-]*-[^-]*$/s/-[^-]*$//p'`
+
+for prefix in ${1+"$@"}; do
+  for domain in $domain_list; do
+    for machtype in $machtype_list; do
+      echo $prefix/domain/$domain/arch/$machtype
+    done
+    echo $prefix/domain/$domain
+  done
+
+  for machtype in $machtype_list; do
+    echo $prefix/arch/$machtype
+  done
+done
+
+# eof
