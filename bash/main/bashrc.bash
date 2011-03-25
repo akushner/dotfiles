@@ -57,7 +57,7 @@ export GOARCH=amd64
 #export GOBIN=
 
 export VIMRUNTIME=/usr/share/vim/vim72
-export VIM=/u01/akushner/etc/init/vim
+export VIM=~akushner/etc/init/vim
 
 # Source Facebook definitions
 if [ -f /home/engshare/admin/scripts/master.bashrc ]; then
