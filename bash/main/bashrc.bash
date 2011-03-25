@@ -14,12 +14,6 @@ if [ -f ~/.debug ];then
 	echo "in .bashrc"
 fi
 
-if [ -f /unix ] ; then	
-	alias ls='/bin/ls -CF'
-else
-	alias ls='/bin/ls -F --color=tty'
-fi
-
 if [ -z "$HOST" ] ; then
 	export HOST=${HOSTNAME}
 fi
@@ -29,8 +23,6 @@ export sinit_local=$sinit/local
 
 
 . "$sinit/bash/main/startup.simple.bash"
-
-export CVSROOT=:pserver:akushner@cvsserver:/usr/local/cvsroot
 
 export PYTHONSTARTUP=~/.pythonrc
 
@@ -43,18 +35,7 @@ if [ -f ~/.aliases ];then
 	. ~/.aliases
 fi
 
-# This sillyness is to get around the liblow bug in gpm
-# where it fails on the following:
-# if ((term=(char *)getenv("TERM")) && !strncmp(term,"xterm",5)) {
-#
-if [ x$TERM = "xEterm" ]
-then    TERM=xtermc
-        export TERM
-fi
-
 export LC_ALL=C
-
-export PATH=$PATH:/opt/electriccloud/electriccommander/bin:/opt/ecloud/i686_Linux/bin
 
 # Set some history options
 shopt -s histappend
@@ -75,10 +56,23 @@ export GOOS=linux
 export GOARCH=amd64
 #export GOBIN=
 
-export PATH=$PATH:/u01/akushner/build/depot_tools
-
 export VIMRUNTIME=/usr/share/vim/vim72
 export VIM=/u01/akushner/etc/init/vim
 
+# Source Facebook definitions
+if [ -f /home/engshare/admin/scripts/master.bashrc ]; then
+	. /home/engshare/admin/scripts/master.bashrc
+fi
+
+
+case `hostname -d` in
+    *.facebook.com)
+        echo "in facebook"
+        export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
+        ;;
+    *)
+        echo "not in facebook"
+        ;;
+esac
 
 # vim:tw=70 ft=sh sw=4

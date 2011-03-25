@@ -7,12 +7,10 @@
 /usr/local/bin/
 $HOME/bin
 
-/globaldc/web/TimesTen/globaldc/bin
-/app/oracle/rdbms/92060/bin
-/usr/java/jdk1.4.2/bin/
-/opt/mono-1.1.13.2/bin
-/opt/qt/bin
 /usr/X11R6/bin
 /usr/bin/X11
 
-/usr/local/tools/i686_Linux/bin
+/u01/akushner/build/depot_tools
+
+/opt/electriccloud/electriccommander/bin
+/opt/ecloud/i686_Linux/bin

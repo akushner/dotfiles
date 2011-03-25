@@ -8,8 +8,6 @@
 " Quick timeouts on key combinations.
 set timeoutlen=300
 
-"so ~/.vim/vimrc.wordlist 
-
 " vim clojure stuff
 let vimclojure#NailgunClient = "/u01/akushner/lisp/vimclojure-2.1.1/ng"
 let clj_want_gorilla = 1
