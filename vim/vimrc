@@ -214,9 +214,12 @@ if has('gui_running')
   set guicursor+=i-ci:ver25-Cursor
   set guicursor+=r-cr:hor20-Cursor
   set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
-  colorscheme inkpot
+  colorscheme default
 endif
 
+
+autocmd BufRead *.phpt set filetype=php
+autocmd Filetype php set ts=2 shiftwidth=2 expandtab
 autocmd BufRead *.qcf set filetype=lisp
 autocmd BufRead qpx.inc set filetype=make
 autocmd BufRead letter* set filetype=mail
@@ -227,6 +230,18 @@ autocmd Filetype lisp,ruby,xml,html set ts=4 shiftwidth=2 expandtab
 autocmd Filetype xml,xslt,diff,ruby color desert
 autocmd Filetype xml,xslt,diff,ruby set expandtab
 autocmd BufReadPre viper,.viper set filetype=lisp
+
+" Catch trailing whitespaces
+" http://vim.wikia.com/wiki/Highlight_unwanted_spaces
+highlight ExtraWhitespace ctermbg=lightblue guibg=lightgreen
+"highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+set list listchars=tab:\|_,trail:·
+" end whitespace checks
 
 " Indent XML readably
 " Should only work on regions
