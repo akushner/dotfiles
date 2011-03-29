@@ -66,14 +66,14 @@ fi
 case `hostname -d` in
     *.facebook.com)
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
+        export PERL5LIB="/home/akushner/etc/perl/lib/perl5/site_perl/5.8.8/"
         ;;
     *)
         export PS1='\h:\w\$ '
         ;;
 esac
 
-LANG="en_US.UTF-8"
-LC_ALL="en_US.UTF-8"
-export LANG LC_ALL
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
 
 # vim:tw=70 ft=sh sw=4
