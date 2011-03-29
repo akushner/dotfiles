@@ -35,8 +35,6 @@ if [ -f ~/.aliases ];then
 	. ~/.aliases
 fi
 
-export LC_ALL=C
-
 # Set some history options
 shopt -s histappend
 export HISTCONTROL=ignoredups:erasedups:ignorespace
@@ -73,5 +71,9 @@ case `hostname -d` in
         export PS1='\h:\w\$ '
         ;;
 esac
+
+LANG="en_US.UTF-8"
+LC_ALL="en_US.UTF-8"
+export LANG LC_ALL
 
 # vim:tw=70 ft=sh sw=4
