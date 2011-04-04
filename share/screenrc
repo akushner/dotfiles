@@ -1,0 +1,14 @@
+# use visual bell
+vbell on
+# replace ctrl-A by ctrl-O
+escape ^Oo
+# set a big scrolling buffer
+defscrollback 5000
+
+
+startup_message off
+
+# Window list at the bottom.
+#hardstatus alwayslastline
+#hardstatus string "%-w%{= BW}%50>%n %t%{-}%+w%<"
+
