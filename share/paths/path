@@ -1,12 +1,12 @@
+$HOME/bin
+$HOME/opt/bin
+/usr/local/bin/
+/usr/local/sbin
+
 /bin
 /usr/bin
 /sbin
-/usr/local/sbin
 /usr/sbin
-
-/usr/local/bin/
-$HOME/bin
-$HOME/opt/bin
 
 /usr/X11R6/bin
 /usr/bin/X11
