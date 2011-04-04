@@ -23,6 +23,6 @@ verbose_startup=
 login_mail_check=
 
 # Default terminal type if unknown (user will be queried for confirmation)
-default_term=vt100
+# default_term=vt100
 
 # options.bash ends here

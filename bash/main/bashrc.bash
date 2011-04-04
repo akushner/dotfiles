@@ -21,6 +21,8 @@ fi
 export sinit=$HOME/etc/init
 export sinit_local=$sinit/local
 
+# Need to get arround some of Noah's checks
+export LOGGED=t
 
 . "$sinit/bash/main/startup.simple.bash"
 
@@ -33,6 +35,10 @@ export PYTHONSTARTUP=~/.pythonrc
 
 if [ -f ~/.aliases ];then
 	. ~/.aliases
+fi
+
+if [ -f /etc/bash_completion ];then
+    . /etc/bash_completion
 fi
 
 # Set some history options
@@ -64,7 +70,7 @@ fi
 
 
 case `hostname -d` in
-    *.facebook.com)
+    *facebook.com)
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PERL5LIB="/home/akushner/etc/perl/lib/perl5/site_perl/5.8.8/"
         ;;

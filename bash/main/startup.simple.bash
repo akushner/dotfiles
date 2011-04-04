@@ -66,7 +66,7 @@ ignoreeof=10
 
 # Turn off history; I never use it, but I do sometimes type filenames with
 # `!' in them, and I'm sick of getting bitten.
-set +o histexpand
+#set +o histexpand
 
 # Make sure these are not read-only (aix does this in /etc/profile).
 # Doh!  It turns out that you can't make a variable un-readonly in bash
