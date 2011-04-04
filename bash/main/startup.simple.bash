@@ -55,9 +55,6 @@ BASH_LOAD_PATH="$sinit/bash/lib:$HOME/lib/bash"
 source "$sinit/bash/lib/require.bash"
 require load
 
-# Do not let RedHat 6.x override INPUTRC.
-case $INPUTRC in /etc/inputrc ) unset INPUTRC ;; esac
-
 require defvar
 
 PS1='\u@\h[$SHLVL]: \w \$ '
