@@ -1,7 +1,17 @@
 $HOME/bin
 $HOME/opt/bin
+
+/home/engshare/devtools/arcanist/bin
+/home/engshare/svnroot/tfb/trunk/www/scripts/bin
+/home/engshare/admin/scripts/git
+/home/engshare/admin/scripts
+/home/akushner/www/scripts/bin
+
 /usr/local/bin/
 /usr/local/sbin
+/usr/kerberos/bin
+/opt/local/bin
+/home/akushner/.ec2/bin
 
 /bin
 /usr/bin

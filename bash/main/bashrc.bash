@@ -26,6 +26,8 @@ export LOGGED=t
 
 . "$sinit/bash/main/startup.simple.bash"
 
+set-path
+
 export PYTHONSTARTUP=~/.pythonrc
 
 #[ ! -d ~/.bash_histdir ] && mkdir ~/.bash_histdir
