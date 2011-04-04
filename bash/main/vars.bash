@@ -23,22 +23,11 @@ set \
     -o monitor \
     -o notify
 
-# Disable interactive comments (posix me harder!)
-# This is listed separately because bash 1.12 and earlier didn't have this
-# option.
-case "$BASH_VERSION" in
-   0.* | 1.[0-9].* | 1.1[0-2].* ) : ;;
-   * ) set +o interactive-comments ;;
-esac
-
 # Export CDPATH for emacs.
 #defenv_cmd CDPATH  path-list verify-dir-list "$sinit/share/paths/cdpath"
 #defenv_cmd FIGNORE path-list path-list-colon path-list "$sinit/share/paths/fignore"
 
 defvar FCEDIT ed
-
-export HISTFILE=/dev/null
-HISTSIZE=4096
 
 # New in bash 3.0
 HISTTIMEFORMAT='%m-%d.%H:%M '
