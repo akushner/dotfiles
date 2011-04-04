@@ -3,7 +3,7 @@
 # Created: 1992-07-08
 # Public domain
 
-# $Id: require.bash,v 1.3 2004/02/15 02:22:08 friedman Exp $
+# $Id: require.bash,v 1.4 2010/02/22 19:47:38 friedman Exp $
 
 # Commentary:
 
@@ -53,8 +53,7 @@ export -n BASH_FEATURES
 #:end docstring:
 #
 # (\\014 == C-l)
-eval "function $(echo -e \\014) () { :; }"
-
+() { :; }
 
 #:docstring featurep:
 # Usage: featurep argument
@@ -64,14 +63,13 @@ eval "function $(echo -e \\014) () { :; }"
 #:end docstring:
 
 ###;;;autoload
-function featurep ()
+featurep()
 {
   case " $BASH_FEATURES " in
     *" $1 "* ) return 0 ;;
-    *        ) return 1 ;;
   esac
+  return 1
 }
-
 
 #:docstring provide:
 # Usage: provide symbol ...
@@ -80,7 +78,7 @@ function featurep ()
 #:end docstring:
 
 ###;;;autoload
-function provide ()
+provide()
 {
   local feature
 
@@ -91,7 +89,6 @@ function provide ()
   done
   return 0
 }
-
 
 #:docstring require:
 # Usage: require feature {file}
@@ -113,7 +110,7 @@ function provide ()
 #:end docstring:
 
 ###;;;autoload
-function require ()
+require()
 {
   local feature=$1
   local path=$2
@@ -129,9 +126,9 @@ function require ()
 
     if ! featurep $feature ; then
       echo "require: $feature: feature was not provided." 1>&2
-      case ${REQUIRE_FAILURE_FATAL+set} in
-        'set' ) exit 1   ;;
-        *     ) return 1 ;;
+      case ${REQUIRE_FAILURE_FATAL:+t} in
+        t ) exit   1 ;;
+        * ) return 1 ;;
       esac
     fi
   fi
@@ -148,31 +145,27 @@ function require ()
 #:end docstring:
 
 ###;;;autoload
-function bash_load_path_search ()
+bash_load_path_search()
 {
-  local name=$1
-  local path=${2-$BASH_LOAD_PATH}
+  local path
   local file
+  local dir
 
-  for file in "$name.bash" "$name" ; do
-    set -- $(IFS=':'
-             set -- $path
-             for p in "$@" ; do
-               echo -n "${p:-.} "
-             done)
+  for file in "$1.bash" "$1" ; do
+    path=${2-$BASH_LOAD_PATH}
+    while :; do
+      dir=${path%%:*}
+      path=${path#*:}
 
-    while [ $# -ne 0 ]; do
-      test -f "$1/$file" && { file=$1/$file; break 2; }
-      shift
+      if [ -f "${dir:-.}/$file" ]; then
+        echo "${dir:-.}/$file"
+        return 0
+      fi
+      case $dir in $path ) break ;; esac
     done
   done
 
-  if [ $# -eq 0 ]; then
-    return 1
-  fi
-
-  echo "$file"
-  return 0
+  return 1
 }
 
 provide require

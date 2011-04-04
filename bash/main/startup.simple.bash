@@ -3,15 +3,29 @@
 # Created: 1992-07-23
 # Public domain
 
-# $Id: startup.simple.bash,v 1.30 2005/07/26 03:39:49 friedman Exp $
+# $Id: startup.simple.bash,v 1.32 2006/09/01 07:03:53 friedman Exp $
 
 # Commentary:
 # Code:
 
 # Function to start hairy initialization
+# If `time' is a builtin keyword, use it to provide more accuracy reporting
+# startup time.  Otherwise the startup routines will use $SECONDS to print
+# a low-precision time.
 function startup ()
 {
-  . "$sinit/bash/main/startup.hairy.bash"
+  local hairy=$sinit/bash/main/startup.hairy.bash
+
+  case `type -type time` in
+    keyword )
+      time . "$hairy"
+      case ${startup_TIMEFORMAT:+set} in
+        set ) TIMEFORMAT=$startup_TIMEFORMAT ;;
+        *   ) unset TIMEFORMAT ;;
+      esac
+      unset startup_TIMEFORMAT ;;
+    * ) . "$hairy" ;;
+  esac
 }
 
 if [ -n "$XSESSION" -o -f "$HOME/.bash_startup" ]; then
@@ -21,17 +35,17 @@ fi
 
 . "$sinit/bash/main/options.bash"
 
-case "$LOGGED" in
+case $LOGGED in
   t ) : ;;
   * )
-    umask 022
-    PATH="$HOME/bin:$sinit/bin:$PATH"
-    HISTFILE=~/.history/history.$HOSTNAME
-    EDITOR="vim"
-    VISUAL="vim"
+    umask 000
+    PATH="$HOME/bin/local:$HOME/bin/share:$HOME/bin/misc:$sinit/bin:$PATH:/usr/sbin:/sbin"
+    HISTFILE=/dev/null
+    EDITOR=ed
+    VISUAL=ed
     export PATH HISTFILE EDITOR VISUAL
 
-    case "$LANG" in
+    case $LANG in
       en_US* ) unset LANG ;;
     esac
    ;;
@@ -42,7 +56,7 @@ source "$sinit/bash/lib/require.bash"
 require load
 
 # Do not let RedHat 6.x override INPUTRC.
-case "$INPUTRC" in /etc/inputrc ) unset INPUTRC ;; esac
+case $INPUTRC in /etc/inputrc ) unset INPUTRC ;; esac
 
 require defvar
 
@@ -105,7 +119,7 @@ function stty-canon ()
   stty cs8 -istrip -iexten -parenb -ixon -ixoff -ixany ${1+"$@"}
   stty onlcr -ocrnl -onlret ${1+"$@"}
 
-  case "$TERM" in
+  case $TERM in
     emacs ) stty -icrnl -inlcr -onlcr ;;
     xterm ) stty erase '^?' ;;
   esac
@@ -157,15 +171,15 @@ alias ZZ=suspend
   stty -ixon -ixoff -ixany
   stty onlcr -ocrnl -onlret
 
-  case "$TERM" in
+  case $TERM in
     emacs ) stty -icrnl -inlcr -onlcr ;;
   esac
 
 } 2> /dev/null
 
-case "$EMACS" in
+case $EMACS in
   t )
-    case "$TERM" in
+    case $TERM in
       xterm )
         unset EMACS
         stty opost 2> /dev/null
@@ -173,7 +187,7 @@ case "$EMACS" in
       * ) TERM=emacs ;;
     esac
 esac
-case "$TERM" in
+case $TERM in
   emacs)
     export PAGER=cat
     unset MAIL MAILPATH MAILCHECK MAIL_WARNING

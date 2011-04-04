@@ -1,9 +1,21 @@
-# ~/.bash_logout
+# logout.bash
+# Author: Noah Friedman <friedman@splode.com>
+# Created: 1992-07-23
+# Public domain
 
-if [ -x /bin/clear ];then
-	/bin/clear
-elif [ -x /usr/bin/clear ];then
-	/usr/bin/clear
+# $Id: logout.bash,v 1.2 2002/08/09 11:54:07 friedman Exp $
+
+# Commentary:
+# Code:
+
+source_local_bash_init_file logout
+
+if [ -n "${LOGFILE+set}" ]; then
+   require recordlog && recordlog out
 fi
 
-# vim:tw=70 ft=sh sw=4
+if consolep && [ ${SHLVL} -eq 1 ]; then
+   clear
+fi
+
+# logout.bash ends here

@@ -7,7 +7,7 @@
 # Maintainer: Noah Friedman <friedman@splode.com>
 # Created: 1993-03-08
 
-# $Id: hosttype,v 1.51 2005/12/22 05:27:43 friedman Exp $
+# $Id: hosttype,v 1.54 2006/10/07 00:41:14 friedman Exp $
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -92,19 +92,31 @@ case $UNAME_MACHINE:$UNAME_SYSTEM:$UNAME_RELEASE:$UNAME_VERSION in
   *:Linux:*:*)
     OS=gnu
     if [ -f /etc/fedora-release ]; then
-      fcver=`sed -e 's/Fedora Core release //' \
-                 -e 's/ (.*//' \
-                 -e 's/\.//g' \
-                 -e 's/0$//g' \
-                 -e q /etc/fedora-release`
-      OS=fedora$fcver
+      ver=`sed -e 's/Fedora Core release //' \
+               -e 's/ (.*//' \
+               -e 's/\.//g' \
+               -e 's/0$//g' \
+               -e q /etc/fedora-release`
+      OS=fedora$ver
+    elif [ -f /etc/mandrake-release ]; then
+      ver=`sed -e 's/Mandrake .* release \([0-9.]*\)/\1/' \
+               -e 's/ (.*//' \
+               -e 's/\.//g' \
+               -e 's/0$//g' \
+               -e q /etc/mandrake-release`
+      OS=mandrake$ver
     elif [ -f /etc/redhat-release ]; then
-      rhver=`sed -e 's/Red Hat .* release \([0-9.]*\)/\1/' \
-                 -e 's/ (.*//' \
-                 -e 's/\.//g' \
-                 -e 's/0$//g' \
-                 -e q /etc/redhat-release`
-      OS=redhat$rhver
+      # line 1: enterprise linux 3 and later
+      # line 2: 6.x and later
+      # line 3: 5.x and earlier
+      ver=`sed -e 's/Red Hat Enterprise .* release \([0-9.]*\)/rhel\1/' \
+               -e 's/Red Hat .* release \([0-9.]*\)/redhat\1/' \
+               -e 's/^release \([0-9.]*\)/redhat\1/' \
+               -e 's/ (.*//' \
+               -e 's/\.//g' \
+               -e 's/0$//g' \
+               -e q /etc/redhat-release`
+      OS=$ver
     elif [ -f /etc/debian_version ]; then
       ver=`sed -e 's/\.//g' \
                -e 's/0$//g' \
@@ -117,6 +129,13 @@ case $UNAME_MACHINE:$UNAME_SYSTEM:$UNAME_RELEASE:$UNAME_VERSION in
                -e 's/0$//g' \
                -e q /etc/SuSE-release`
       OS=suse$ver
+    elif [ -f /etc/cobalt-release ]; then
+      ver=`sed -e 's/^release \([0-9.]*\)/\1/' \
+               -e 's/ (.*//' \
+               -e 's/\.//g' \
+               -e 's/0$//g' \
+               -e q /etc/cobalt-release`
+      OS=cobalt$ver
     fi
 
     # Canonicalize machine, vendor, object format, libc, etc.
@@ -386,6 +405,13 @@ EOF
                 UNAME_MACHINE=hppa1.1 ;;
     esac
     echo ${UNAME_MACHINE}-${vendor}-lites
+    exit 0 ;;
+  *:Darwin:*:*)
+    case `uname -p` in
+      *86 )     UNAME_PROCESSOR=x86     ;;
+      powerpc ) UNAME_PROCESSOR=powerpc ;;
+    esac
+    echo ${UNAME_PROCESSOR}-apple-darwin${UNAME_RELEASE}
     exit 0 ;;
   alpha:OSF1:*:*)
     if test $UNAME_RELEASE = "V4.0"; then
@@ -749,9 +775,13 @@ EOF
         if [ -x $getconf ]; then
           sc_cpu_version=`$getconf SC_CPU_VERSION 2>/dev/null`
           case $sc_cpu_version in
-            523) HP_ARCH=hppa1.0 ;; # CPU_PA_RISC1_0
-            528) HP_ARCH=hppa1.1    # CPU_PA_RISC1_1
-              # Get more detailed info on 1.1 revision.
+            524) HP_ARCH=m68k    ;; # CPU_HP_MC68020     (0x20c)
+            525) HP_ARCH=m68k    ;; # CPU_HP_MC68030     (0x20d)
+            526) HP_ARCH=m68k    ;; # CPU_HP_MC68040     (0x20e)
+
+            523) HP_ARCH=hppa1.0 ;; # CPU_PA_RISC1_0     (0x20b)
+            528) HP_ARCH=hppa1.1    # CPU_PA_RISC1_1     (0x210)
+              # get more detailed info on 1.1 revision.
 
               # The 700 and 800 series have no rhyme or reason to which PA
               # version they use.
@@ -770,13 +800,17 @@ EOF
                 test -z "$pa" || HP_ARCH=hppa$pa
               fi
              ;;
-            532) HP_ARCH=hppa2.0    # CPU_PA_RISC2_0
+            528) HP_ARCH=hppa1.2 ;; # CPU_PA_RISC1_2     (0x211)
+            532) HP_ARCH=hppa2.0    # CPU_PA_RISC2_0     (0x214)
               # hpux 10.20 and earlier don't have this variable:
               sc_kernel_bits=`$getconf SC_KERNEL_BITS 2>/dev/null`
               case $sc_kernel_bits in
                 32) HP_ARCH=hppa2.0n ;;   # 32-bit "narrow" mode
                 64) HP_ARCH=hppa2.0w ;;   # 64-bit "wide" mode
               esac ;;
+
+            # What is this?  Is this an ia64 or something?
+            568) HP_ARCH=em1 ;;     # CPU_HP_INTEL_EM_1_0 (0x300)
           esac
         fi
         if [ "" = "$HP_ARCH" ]; then
@@ -1181,13 +1215,6 @@ EOF
     exit 0 ;;
   *:Rhapsody:*:*)
     echo ${UNAME_MACHINE}-apple-rhapsody${UNAME_RELEASE}
-    exit 0 ;;
-  *:Darwin:*:*)
-    case `uname -p` in
-      *86 )     UNAME_PROCESSOR=x86     ;;
-      powerpc ) UNAME_PROCESSOR=powerpc ;;
-    esac
-    echo ${UNAME_PROCESSOR}-apple-darwin${UNAME_RELEASE}
     exit 0 ;;
   *:procnto*:*:* | *:QNX:[0123456789]*:*)
     UNAME_PROCESSOR=`uname -p`
