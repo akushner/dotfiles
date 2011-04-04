@@ -3,15 +3,19 @@
 # Created: 2002-08-08
 # Public domain
 
-# $Id: domain.bash,v 1.9 2005/07/03 00:14:17 friedman Exp $
+# $Id: domain.bash,v 1.10 2006/07/12 23:42:13 friedman Exp $
 
 # Commentary:
 # Code:
 
 function domain_init_file_list ()
 {
-  echo $1 | sed -n -e H \
-                   -e g \
+  # The apparently no-op sequence 'x;x' is to avoid a bug in FreeBSD 4.4's
+  # sed, where an append to an uninitialized hold space results in no
+  # newline separator.  The exchange forces the init of the hold space to
+  # an empty string so that the newline appears.
+  # FreeBSD 4.10-RC3 and later don't seem to have this bug.
+  echo $1 | sed -n -e 'x;x;H;g' \
                    -e 's/$/./' \
                    -e :l1 \
                    -e 's/^\(.*\)\(\n\)\([^.]*\)\./\3.\1\2/' \

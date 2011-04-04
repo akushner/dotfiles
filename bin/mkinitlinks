@@ -7,12 +7,21 @@ cd "$HOME" || exit 1
 
 rm -f .bash_login .bashrc .emacs .esrc .inputrc .plan
 
-ln -s $sinit/bash/main/logout.bash          .bash_logout
-ln -s $sinit/bash/main/bashrc.bash          .bashrc
-ln -s $sinit/bash/main/bash_profile.bash    .bash_profile
-ln -s $sinit/emacs/dot.emacs                .emacs
-ln -s $sinit/share/inputrc                  .inputrc
-ln -s $sinit/share/plan                     .plan
+ln $sinit/bash/main/bash_login.bash      .bash_login
+ln $sinit/bash/main/bashrc.bash          .bashrc
+ln $sinit/emacs/.emacs                   .emacs
+ln $sinit/share/pythonrc                 .pythonrc
+ln $sinit/share/inputrc                  .inputrc
+ln $sinit/share/plan                     .plan
+
+set fnord `ls -t $sinit/share/mknetrc .netrc 2> /dev/null`
+shift
+case $1 in $sinit/share/mknetrc )
+  rm .netrc
+  $sinit/share/mknetrc > .netrc
+  chmod 600 .netrc
+ ;;
+esac
 
 test -f .hushlogin || : > .hushlogin
 

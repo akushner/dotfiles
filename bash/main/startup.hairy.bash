@@ -3,14 +3,15 @@
 # Created: 1992-07-23
 # Public domain
 
-# $Id: startup.hairy.bash,v 1.8 2004/02/15 02:22:08 friedman Exp $
+# $Id: startup.hairy.bash,v 1.12 2010/03/02 22:58:35 friedman Exp $
 
 # Commentary:
 # Code:
 
 # Null function.  Provided only so that we can put page breaks in source
 # files without any ill effects.  \\014 == C-l
-eval "function $(echo -e \\014) () { :; }"
+#eval "function $(echo -e \\014) () { :; }"
+#() { :; }
 
 test -f "$HOME/.bash_debug" && set -x
 
@@ -27,7 +28,12 @@ function verbose_startup ()
       verbose_startup_indent_level=$[ verbose_startup_indent_level - 1 ]
       if [ $verbose_startup_indent_level -eq 0 ]; then
         echo
-        echo "Shell initialized in $[ $SECONDS - verbose_startup_start_seconds ] seconds."
+        case `type -type time` in
+          keyword ) startup_TIMEFORMAT=$TIMEFORMAT
+                    TIMEFORMAT="Shell initialized in %3R seconds." ;;
+          * ) echo Shell initialized in \
+                   $[ $SECONDS - verbose_startup_start_seconds ] seconds. ;;
+        esac
         unset verbose_startup_indent_level verbose_startup_start_seconds
       fi
     else
@@ -46,12 +52,9 @@ function verbose_startup ()
 
 function defenv_PAGER ()
 {
-  if defenv_cmd PAGER which which less ; then
-    defenv LESS '-adeiqs -h10 -P--Less--?pB(%pB\%).'
-  else
-    defenv_cmd PAGER which which more
-    defenv MORE '-s'
-  fi
+  for pg in pager less most more ; do
+    defenv_cmd PAGER which which $pg && break
+  done
 }
 
 function get_termcap ()
@@ -99,19 +102,6 @@ function tset ()
   case ${TERMCAP+set}  in set ) : ;; * ) get_termcap  ;; esac
   case ${TERMINFO+set} in set ) : ;; * ) get_terminfo ;; esac
   command tset "$@"
-}
-
-# If host uses yp, we can do things like alias match (a shell script of
-# mine to emulate ypmatch) to ypmatch.
-function host_uses_yp ()
-{
-  if [ -f /etc/nsswitch.conf ]; then
-    egrep '^passwd:.*(nis|yp|compat)' /etc/nsswitch.conf > /dev/null 2>&1
-    return $?
-  else
-    grep '^+:' /etc/passwd > /dev/null 2>&1
-    return $?
-  fi
 }
 
 function sourceif ()
@@ -165,11 +155,18 @@ function startup_load_libraries ()
      verbose_startup "main/startup.hairy"
   fi
 
-  startup_load_libraries path-list chdir consolep defvar fileutils help \
+  startup_load_libraries path-list chdir defvar fileutils help \
                          load prompt prompt_command source which \
                          check_exit_status
 
   add_prompt_command check_exit_status
+
+  if (uname) > /dev/null 2>&1 ; then
+    un_m=`uname -m`
+    un_r=`uname -r`
+    un_s=`uname -s`
+    un_v=`uname -v`
+  fi
 
   for f in  env vars aliases misc  ; do
      source_bash_init_file "main/$f"

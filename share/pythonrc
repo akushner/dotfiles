@@ -1,0 +1,57 @@
+from __future__ import nested_scopes
+from math import *
+import sys, os, string, time
+#from utils import *
+
+################ Interactive Prompt and Debugging ################
+
+HISTORYFILE="/u01/akushner/.pythonhistory"
+
+try:
+    import readline
+except ImportError:
+    print("Module readline not available.")
+else:
+    import rlcompleter
+    readline.parse_and_bind("tab: complete")
+    try:
+        # check if the history file is available.
+        f = open(HISTORYFILE, "a")
+        f.close()
+        readline.read_history_file(HISTORYFILE)
+    except IOError:
+        # for some reason...
+        pass
+    try:
+        import atexit
+        # atexit is available.
+        atexit.register(lambda: readline.write_history_file(HISTORYFILE))
+    except:
+        # atexit is not available in Python1.5.
+        pass
+
+h = [None]
+
+class Prompt:
+    def __init__(self, str='h[%d] >>> '):
+    	self.str = str
+
+    def __str__(self):
+        try:
+            if _ not in [h[-1], None, h]: h.append(_);
+        except NameError:
+            pass
+        return self.str % len(h)
+
+        def __radd__(self, other):
+            return str(other) + str(self)
+
+
+if os.environ.get('TERM') in [ 'xterm', 'vt100', 'xtermc' ]:
+    sys.ps1 = Prompt('h[%d] >>> \001\033[0m\002')
+else:
+    sys.ps1 = Prompt()
+
+sys.ps2 = ''
+
+# vim: ft=python sw=2 ts=4 et:
