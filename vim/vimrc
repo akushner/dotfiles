@@ -8,6 +8,7 @@
 " Quick timeouts on key combinations.
 set timeoutlen=300
 set nocp
+set autowrite
 
 " vim clojure stuff
 let vimclojure#NailgunClient = "/u01/akushner/lisp/vimclojure-2.1.1/ng"
