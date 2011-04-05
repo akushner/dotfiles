@@ -217,7 +217,11 @@ if has('gui_running')
   set guicursor+=r-cr:hor20-Cursor
   set guicursor+=sm:block-Cursor-blinkwait175-blinkoff150-blinkon175
   colorscheme default
+else
+    set t_co=256
 endif
+set background=dark
+colors peaksea
 
 
 autocmd BufRead *.phpt set filetype=php
