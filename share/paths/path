@@ -1,4 +1,5 @@
 $HOME/bin
+$HOME/opt/libexec/git-core/
 $HOME/opt/bin
 
 /home/engshare/devtools/arcanist/bin
