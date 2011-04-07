@@ -220,8 +220,10 @@ if has('gui_running')
 else
     set t_co=256
 endif
-set background=dark
-colors peaksea
+"set background=light
+"colorscheme peaksea
+set background=light
+"colorscheme solarized
 
 
 autocmd BufRead *.phpt set filetype=php
