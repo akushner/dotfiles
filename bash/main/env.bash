@@ -109,7 +109,7 @@ defenv XAUTHORITY      $HOME/.Xauthority
 defenv XDG_CONFIG_HOME $HOME/etc/misc/.config
 defenv XCOMPOSEFILE    $sinit/share/xcompose
 
-defenv EDITOR ed
+defenv EDITOR vim
 defenv VISUAL "$EDITOR"
 
 defenv P4CONFIG .p4

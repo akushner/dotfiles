@@ -41,8 +41,8 @@ case $LOGGED in
     umask 000
     PATH="$HOME/bin/local:$HOME/bin/share:$HOME/bin/misc:$sinit/bin:$PATH:/usr/sbin:/sbin"
     HISTFILE=/dev/null
-    EDITOR=ed
-    VISUAL=ed
+    EDITOR=vim
+    VISUAL=vim
     export PATH HISTFILE EDITOR VISUAL
 
     case $LANG in
