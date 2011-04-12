@@ -21,7 +21,7 @@ set bell-style none
 
 # The value for rl_completion_query_items; the threshold above which the
 # user is asked if he wants to see the possible completions.
-set completion-query-items 10
+set completion-query-items 100
 
 # When `on', this means don't assume that a character with the 8th bit set
 # is an ISO-8859-1 character, but rather a character with a meta prefix.

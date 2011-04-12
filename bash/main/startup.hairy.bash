@@ -157,7 +157,7 @@ function startup_load_libraries ()
 
   startup_load_libraries path-list chdir defvar fileutils help \
                          load prompt prompt_command source which \
-                         check_exit_status
+                         check_exit_status fuck
 
   add_prompt_command check_exit_status
 
