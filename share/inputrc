@@ -62,7 +62,7 @@ set output-meta off
 
 # If set to `on', words which have more than one possible completion cause
 # the matches to be listed immediately instead of ringing the bell.
-set show-all-if-ambiguous off
+set show-all-if-ambiguous on
 
 # If set to `on', a character denoting a file's type is appended to the
 # filename when listing possible completions.
