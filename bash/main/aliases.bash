@@ -112,6 +112,6 @@ backup() {
 	)
 }
 
-source_local_bash_init_file aliases
+#source_local_bash_init_file aliases
 
 # aliases.bash ends here

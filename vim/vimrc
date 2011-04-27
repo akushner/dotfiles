@@ -227,12 +227,13 @@ set background=light
 
 
 autocmd BufRead *.phpt set filetype=php
-autocmd Filetype php set ts=2 shiftwidth=2 expandtab
 autocmd BufRead *.qcf set filetype=lisp
 autocmd BufRead qpx.inc set filetype=make
 autocmd BufRead letter* set filetype=mail
 autocmd Filetype mail set fo -=l autoindent spell
 
+autocmd Filetype perl set ts=2 shiftwidth=2 expandtab
+autocmd Filetype php set ts=2 shiftwidth=2 expandtab
 autocmd Filetype sh set ts=4 shiftwidth=2 expandtab
 autocmd Filetype lisp,ruby,xml,html set ts=4 shiftwidth=2 expandtab
 autocmd Filetype xml,xslt,diff,ruby color desert
