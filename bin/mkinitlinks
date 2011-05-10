@@ -14,6 +14,7 @@ ln $sinit/emacs/.emacs                   .emacs
 ln $sinit/share/pythonrc                 .pythonrc
 ln $sinit/share/inputrc                  .inputrc
 ln $sinit/share/plan                     .plan
+ln $sinit/share/gitconfig                .gitconfig
 
 set fnord `ls -t $sinit/share/mknetrc .netrc 2> /dev/null`
 shift
