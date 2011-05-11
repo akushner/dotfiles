@@ -5,7 +5,8 @@ set -x
 
 cd "$HOME" || exit 1
 
-rm -f .bash_login .bashrc .emacs .esrc .inputrc .plan .gitconfig .aliases
+rm -f .bash_login .bashrc .emacs .esrc .inputrc \
+      .plan .gitconfig .gitignore .aliases .gvimrc
 
 ln $sinit/bash/main/bash_login.bash      .bash_login
 ln $sinit/bash/main/bashrc.bash          .bashrc
@@ -14,7 +15,9 @@ ln $sinit/emacs/.emacs                   .emacs
 ln $sinit/share/pythonrc                 .pythonrc
 ln $sinit/share/inputrc                  .inputrc
 ln $sinit/share/plan                     .plan
+ln $sinit/vim/gvimrc                     .gvimrc
 ln $sinit/share/gitconfig                .gitconfig
+ln $sinit/share/gitignore                .gitignore
 
 set fnord `ls -t $sinit/share/mknetrc .netrc 2> /dev/null`
 shift
