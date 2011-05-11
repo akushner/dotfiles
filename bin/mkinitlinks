@@ -5,7 +5,7 @@ set -x
 
 cd "$HOME" || exit 1
 
-rm -f .bash_login .bashrc .emacs .esrc .inputrc .plan
+rm -f .bash_login .bashrc .emacs .esrc .inputrc .plan .gitconfig .aliases
 
 ln $sinit/bash/main/bash_login.bash      .bash_login
 ln $sinit/bash/main/bashrc.bash          .bashrc
