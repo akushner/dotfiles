@@ -55,6 +55,7 @@ export PATH=$PATH:$EC2_HOME/bin
 export EC2_PRIVATE_KEY=pk-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
 export EC2_CERT=cert-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
 export JAVA_HOME=/usr/lib/jvm/jdk1.5.0_2
+export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_21
 export PAGER=less
 
 export GOROOT=$HOME/go
@@ -77,11 +78,13 @@ case `hostname -d` in
         export PERL5LIB="/home/akushner/etc/perl/lib/perl5/site_perl/5.8.8/"
         ;;
     *)
-        export PS1='\h:\w\$ '
+        #export PS1='\h:\w\$ '
+        export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         ;;
 esac
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
+
 
 # vim:tw=70 ft=sh sw=4

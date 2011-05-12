@@ -2,6 +2,10 @@ $HOME/bin
 $HOME/opt/libexec/git-core/
 $HOME/opt/bin
 
+/usr/lib/jvm/jdk1.6.0_21/bin
+/opt/apache-ant-1.8.0/bin
+/opt/apache-maven-3.0.3/bin
+
 /home/engshare/devtools/arcanist/bin
 /home/engshare/svnroot/tfb/trunk/www/scripts/bin
 /home/engshare/admin/scripts/git
