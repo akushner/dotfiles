@@ -32,17 +32,33 @@ set backspace=indent,eol,start
 set listchars=tab:>-,trail:-
 nmap <silent> <leader>s :set nolist!<CR>
 
+" Edit the vimrc file
+nmap <silent> ,ev :e $MYVIMRC<CR>
+nmap <silent> ,sv :so $MYVIMRC<CR>
+
+" Underline the current line with '='
+nmap <silent> ,ul :t.\|s/./=/g\|set nohls<cr>
+
+" Syntax coloring lines that are too long just slows down the world
+set synmaxcol=2048
+
 set virtualedit=all
 
 " Search options (turn of hlsearch with <leader n>
 set hlsearch
-set ignorecase 
+set ignorecase
 set smartcase
 "set incsearch
 nmap <silent> <leader>n :silent :nohlsearch<CR>
 
 set printoptions=paper:letter,syntax:n,duplex:on
 set laststatus=2
+
+" Toggle paste mode
+nmap <silent> ,p :set invpaste<CR>:set paste?<CR>
+"
+" set text wrapping toggles
+nmap <silent> ,w :set invwrap<CR>:set wrap?<CR>
 
 set nodigraph
 set wrapscan
@@ -163,8 +179,10 @@ set sidescroll=1
 set updatecount=100 updatetime=3600000		" saves power on notebooks
 set ttyfast lazyredraw
 "   for formatting comments, and replies to emails and posts
-set comments+=b:#,:%,:XCOMM,n:>,fb:-,nb:\"
-set cmdheight=2			" prevents most "type return" messages
+"set comments+=b:#,:%,:XCOMM,n:>,fb:-,nb:\"
+set comments=sl:/*,mb:\ *,ex:\ */,O://,b:#,:%,:XCOMM,n:>,fb:-
+
+set cmdheight=2
 set errorfile=/tmp/errors.vim
 
 "   for word completion
