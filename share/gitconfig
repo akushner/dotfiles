@@ -1,0 +1,68 @@
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[alias]
+  br = branch
+  co = checkout
+  ci = commit
+  di = diff
+  st = status
+  lol = log --pretty=oneline --abbrev-commit --graph --decorate
+  lob = log --pretty=oneline --all --decorate --boundary --graph
+  lg = log --boundary --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
+  parent = remote -v
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+  #        $ git graphviz HEAD~100..HEAD~60 | dotty /dev/stdin
+  #        $ git graphviz --first-parent master | dotty /dev/stdin
+  graphviz = "!f() { echo 'digraph git {' ; git log --pretty='format:  %h -> { %p }' \"$@\" | sed 's/[0-9a-f][0-9a-f]*/\"&\"/g' ; echo '}'; }; f"
+  # If you use shortened hashes, sometimes you may encounter a
+  # collision. The following alias prints out all commits whose
+  # hash start with given string.
+  abbr = "!sh -c 'git rev-list --all | grep ^$1 | while read commit; do git --no-pager log -n1 --pretty=format:\"%H %ci %an %s%n\" $commit; done' -"
+  # changes in local branches that are not in master
+  my-changes = log --graph --branches ^master --boundary --abbrev=7 \
+          --pretty=tformat:'%C(yellow)%h%Creset%C(green)%d%Creset %s'
+  mc = log --graph --branches ^master --boundary --abbrev=7 \
+          --pretty=tformat:'%C(yellow)%h%Creset%C(green)%d%Creset %s'
+  # changes in all branches that are not in master
+  ac = log --graph --all ^master --boundary --abbrev=7 \
+          --pretty=tformat:'%C(yellow)%h%Creset%C(green)%d%Creset %s'
+  # log oneline
+  lo = log --pretty=tformat:'%C(yellow)%h%Creset%C(green)%d%Creset %s'
+  # log oneline graph
+  lgo = log --graph --boundary \
+          --pretty=tformat:'%C(yellow)%h%Creset%C(green)%d%Creset %s'
+  # log oneline, graph, author
+  lga = log --graph --boundary \
+          --pretty=tformat:'%C(yellow)%h%Creset %C(red)%an%C(reset)%C(green)%d%Creset %s'
+  # log oneline, graph, date
+  lgd = log --graph --boundary --date=short \
+          --pretty=tformat:'%C(yellow)%h%Creset %C(blue)%cd%C(reset)%C(green)%d%Creset %s'
+  # log oneline, graph, author, date
+  lgad = log --graph --boundary --date=short \
+          --pretty=tformat:'%C(yellow)%h%Creset %C(blue)%cd%C(reset) %C(red)%an%C(reset)%C(green)%d%Creset %s'
+  # log oneline, author, date
+  lad = log --date=short \
+          --pretty=tformat:'%C(yellow)%h%Creset %C(blue)%cd%C(reset) %C(red)%an%C(reset)%C(green)%d%Creset %s'
+  # log oneline, date
+  ld = log --date=short \
+          --pretty=tformat:'%C(yellow)%h%Creset %C(blue)%cd%C(reset)%C(green)%d%Creset %s'
+[svn]
+  followparent = true
+
+[user]
+  name = Aaron Kushner
+	email = akushner@fb.com
+[core]
+  excludesfile = /home/akushner/.gitignore
+[merge]
+  stat = true
+[rerere]
+  enabled = true
+[diff]
+  mnemonicprefix = true
+
+# vim: set et sw=2 ts=2:
