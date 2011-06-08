@@ -75,7 +75,8 @@ alias bbin='cd /home/akushner/work/Deploy/cash/build/bin'
 alias setroot='xloadimage -onroot  etc/bg.gif'
 
 alias sf-cqa-app01="ssh -t -x -C slot \"ssh sf-cqa-app01\""
-alias s="ssh -i ~/.ssh/wagerworks_dsa -t -x -C slot \"ssh $1\""
+#alias s="ssh -i ~/.ssh/wagerworks_dsa -t -x -C slot \"ssh $1\""
+alias s="ssh -t -x dev2069.snc6.facebook.com \"ssh $1\""
 alias gk="nohup gkrellm -g +1208+470 &"
 
 alias rpms="cd /u01/kickstart/RedHat/RPMS"

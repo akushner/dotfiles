@@ -30,3 +30,6 @@ $HOME/opt/bin
 
 /opt/electriccloud/electriccommander/bin
 /opt/ecloud/i686_Linux/bin
+
+/home/akushner/android/android-sdk-linux_x86/platform-tools
+/home/akushner/android/android-sdk-linux_x86/tools
