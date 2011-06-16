@@ -27,6 +27,7 @@ alias fight='mpg123-alsa ~akushner/mp3/punk/One-inch-punch_fight.mp3'
 
 alias porn='cd /u02/video/torrent_porn'
 alias ec='cd ~akushner/projects/work/EC'
+alias sd='ssh dev2069.snc6.facebook.com'
 
 alias cal='cal -3' #show 3 months by default
 alias grep='GREP_COLOR="1;33;40" LANG=C grep --color=auto'
