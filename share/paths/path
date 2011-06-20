@@ -31,7 +31,6 @@ $HOME/opt/$release/bin
 /opt/electriccloud/electriccommander/bin
 /opt/ecloud/i686_Linux/bin
 
-/home/akushner/android/android-sdk-linux_x86/platform-tools
-/home/akushner/android/android-sdk-linux_x86/tools
-/u01/akushner/android/android-sdk-linux_x86/platform-tools
-/u01/akushner/android/android-sdk-linux_x86/tools
+$HOME/android/android-sdk-linux_x86/platform-tools
+$HOME/home/akushner/android/android-sdk-linux_x86/tools
+$HOME/eclipse

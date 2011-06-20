@@ -113,9 +113,11 @@ fi
 ### END ssh-agent ###
 
 ### START kerberos ###
-/usr/kerberos/bin/klist -s
-if [[ $? -ne 0 ]]; then
-  /usr/kerberos/bin/kinit
+if [ -f /usr/kerberos/bin/klist ]; then
+    /usr/kerberos/bin/klist -s
+    if [[ $? -ne 0 ]]; then
+      /usr/kerberos/bin/kinit
+    fi
 fi
 ### END kerberos ###
 
