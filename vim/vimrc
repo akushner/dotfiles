@@ -134,9 +134,9 @@ set   statusline=%{getcwd()}\ \ %1*[%02n]%*\ %(%M%R%H%)\ %2*%F%*\ %=%{Options()}
 "       User1: color for buffer number
 hi    User1 cterm=NONE    ctermfg=red    ctermbg=white  guifg=red    guibg=white
 "       User2: color for filename
-hi    User2 cterm=NONE    ctermfg=green  ctermbg=white  guifg=green  guibg=white
+hi    User2 cterm=NONE    ctermfg=black  ctermbg=white  guifg=green  guibg=white
 "       User3: color for position
-hi    User3 cterm=NONE    ctermbg=blue   ctermbg=white  guifg=blue   guibg=white
+hi    User3 cterm=NONE    ctermfg=black   ctermbg=white  guifg=blue   guibg=white
 
 fu! Version()
         return version

@@ -3,7 +3,7 @@
 #
 
 if [ -z "$PS1" ]; then
-	return
+    return
 fi
 
 case "$PS1$XSESSION" in
@@ -11,15 +11,19 @@ case "$PS1$XSESSION" in
 esac
 
 if [ -f ~/.debug ];then
-	echo "in .bashrc"
+    echo "in .bashrc"
 fi
 
 if [ -z "$HOST" ] ; then
-	export HOST=${HOSTNAME}
+    export HOST=${HOSTNAME}
 fi
 
 export sinit=$HOME/etc/init
 export sinit_local=$sinit/local
+
+if [ -f /usr/bin/lsb_release ];then 
+    export release=$(lsb_release -r | awk '{print $2}')
+fi
 
 # Need to get arround some of Noah's checks
 export LOGGED=t
@@ -36,7 +40,7 @@ export PYTHONSTARTUP=~/.pythonrc
 
 
 if [ -f ~/.aliases ];then
-	. ~/.aliases
+    . ~/.aliases
 fi
 
 if [ -f /etc/bash_completion ];then
@@ -61,16 +65,14 @@ export PAGER=less
 export GOROOT=$HOME/go
 export GOOS=linux
 export GOARCH=amd64
-#export GOBIN=
 
 export VIMRUNTIME=/usr/share/vim/vim72
 export VIM=~akushner/etc/init/vim
 
 # Source Facebook definitions
 if [ -f /home/engshare/admin/scripts/master.bashrc ]; then
-	. /home/engshare/admin/scripts/master.bashrc
+    . /home/engshare/admin/scripts/master.bashrc
 fi
-
 
 case `hostname -d` in
     *facebook.com)
@@ -78,13 +80,43 @@ case `hostname -d` in
         export PERL5LIB="/home/akushner/etc/perl/lib/perl5/site_perl/5.8.8/"
         ;;
     *)
-        #export PS1='\h:\w\$ '
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
+        #export PS1='\h:\w\$ '
         ;;
 esac
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
+### START ssh-agent ###
+mkdir -p ~/.ssh/agent-state
+SSHPROFILE=~/.ssh/agent-state/${HOSTNAME}
+OLDSSHPROFILE=~/.ssh_agent_state_${HOSTNAME}
+if [[ -f ${OLDSSHPROFILE} ]] && ! [[ -f ${SSHPROFILE} ]] ; then
+  mv ${OLDSSHPROFILE} ${SSHPROFILE}
+fi
+
+# Try to attach to a currently running agent
+if [[ -e "${SSHPROFILE}" ]] ; then
+  . "${SSHPROFILE}" > /dev/null
+fi
+
+# Make sure we succeeded
+if [ -z "${SSH_AGENT_PID}" ] || ! (ps -p "${SSH_AGENT_PID}" -o ruser,comm | grep -E "^(${USER}|${UID}) " | grep -q " ssh-agent\ *$") ; then
+  echo "Starting ssh-agent"
+  ssh-agent -s > "$SSHPROFILE"
+  . "${SSHPROFILE}" > /dev/null
+
+  echo "Adding ssh keys to ssh-agent"
+  ssh-add
+fi
+### END ssh-agent ###
+
+### START kerberos ###
+/usr/kerberos/bin/klist -s
+if [[ $? -ne 0 ]]; then
+  /usr/kerberos/bin/kinit
+fi
+### END kerberos ###
 
 # vim:tw=70 ft=sh sw=4
