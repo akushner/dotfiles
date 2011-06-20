@@ -66,7 +66,7 @@ export GOROOT=$HOME/go
 export GOOS=linux
 export GOARCH=amd64
 
-export VIMRUNTIME=/usr/share/vim/vim72
+export VIMRUNTIME=/usr/share/vim/vimcurrent
 export VIM=~akushner/etc/init/vim
 
 # Source Facebook definitions
