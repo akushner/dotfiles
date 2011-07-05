@@ -8,16 +8,16 @@ cd "$HOME" || exit 1
 rm -f .bash_login .bashrc .emacs .esrc .inputrc \
       .plan .gitconfig .gitignore .aliases .gvimrc
 
-ln $sinit/bash/main/bash_login.bash      .bash_login
-ln $sinit/bash/main/bashrc.bash          .bashrc
-ln $sinit/bash/main/aliases.bash         .aliases
-ln $sinit/emacs/.emacs                   .emacs
-ln $sinit/share/pythonrc                 .pythonrc
-ln $sinit/share/inputrc                  .inputrc
-ln $sinit/share/plan                     .plan
-ln $sinit/vim/gvimrc                     .gvimrc
-ln $sinit/share/gitconfig                .gitconfig
-ln $sinit/share/gitignore                .gitignore
+ln -sf $sinit/bash/main/bash_login.bash      .bash_login
+ln -sf $sinit/bash/main/bashrc.bash          .bashrc
+ln -sf $sinit/bash/main/aliases.bash         .aliases
+ln -sf $sinit/emacs/.emacs                   .emacs
+ln -sf $sinit/share/pythonrc                 .pythonrc
+ln -sf $sinit/share/inputrc                  .inputrc
+ln -sf $sinit/share/plan                     .plan
+ln -sf $sinit/vim/gvimrc                     .gvimrc
+ln -sf $sinit/share/gitconfig                .gitconfig
+ln -sf $sinit/share/gitignore                .gitignore
 
 set fnord `ls -t $sinit/share/mknetrc .netrc 2> /dev/null`
 shift
