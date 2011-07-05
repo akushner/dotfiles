@@ -16,6 +16,7 @@ ln -sf $sinit/share/pythonrc                 .pythonrc
 ln -sf $sinit/share/inputrc                  .inputrc
 ln -sf $sinit/share/plan                     .plan
 ln -sf $sinit/vim/gvimrc                     .gvimrc
+ln -sf $sinit/vim/vimrc                      .vimrc
 ln -sf $sinit/share/gitconfig                .gitconfig
 ln -sf $sinit/share/gitignore                .gitignore
 
