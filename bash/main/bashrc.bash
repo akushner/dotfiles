@@ -6,6 +6,7 @@ if [ -z "$PS1" ]; then
     return
 fi
 
+
 case "$PS1$XSESSION" in
   '' ) return 0 ;;
 esac
@@ -21,9 +22,11 @@ fi
 export sinit=$HOME/etc/init
 export sinit_local=$sinit/local
 
-if [ -f /usr/bin/lsb_release ];then 
+if [ -f /usr/bin/lsb_release ];then
     export release=$(lsb_release -r | awk '{print $2}')
 fi
+
+export GOROOT=$HOME/opt/$release/go
 
 # Need to get arround some of Noah's checks
 export LOGGED=t
@@ -62,11 +65,7 @@ export JAVA_HOME=/usr/lib/jvm/jdk1.5.0_2
 export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_21
 export PAGER=less
 
-export GOROOT=$HOME/go
-export GOOS=linux
-export GOARCH=amd64
-
-if [ -f /usr/share/vim/vimcurrent ]; then
+if [ -h /usr/share/vim/vimcurrent ]; then
     export VIMRUNTIME=/usr/share/vim/vimcurrent
 elif [ -f /usr/share/vim/vim72 ]; then
     export VIMRUNTIME=/usr/share/vim/vim72
@@ -102,20 +101,20 @@ if [[ -f ${OLDSSHPROFILE} ]] && ! [[ -f ${SSHPROFILE} ]] ; then
 fi
 
 # Try to attach to a currently running agent
-if [[ -e "${SSHPROFILE}" ]] ; then
-  . "${SSHPROFILE}" > /dev/null
-fi
-
-# Make sure we succeeded
-if [ -z "${SSH_AGENT_PID}" ] || ! (ps -p "${SSH_AGENT_PID}" -o ruser,comm | grep -E "^(${USER}|${UID}) " | grep -q " ssh-agent\ *$") ; then
-  echo "Starting ssh-agent"
-  ssh-agent -s > "$SSHPROFILE"
-  . "${SSHPROFILE}" > /dev/null
-
-  echo "Adding ssh keys to ssh-agent"
-  ssh-add
-fi
-### END ssh-agent ###
+#if [[ -e "${SSHPROFILE}" ]] ; then
+#  . "${SSHPROFILE}" > /dev/null
+#fi
+#
+## Make sure we succeeded
+#if [ -z "${SSH_AGENT_PID}" ] || ! (ps -p "${SSH_AGENT_PID}" -o ruser,comm | grep -E "^(${USER}|${UID}) " | grep -q " ssh-agent\ *$") ; then
+#  echo "Starting ssh-agent"
+#  ssh-agent -s > "$SSHPROFILE"
+#  . "${SSHPROFILE}" > /dev/null
+#
+#  echo "Adding ssh keys to ssh-agent"
+#  ssh-add
+#fi
+#### END ssh-agent ###
 
 ### START kerberos ###
 if [ -f /usr/kerberos/bin/klist ]; then

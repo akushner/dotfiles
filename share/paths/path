@@ -1,6 +1,7 @@
 $HOME/bin
 $HOME/opt/$release/libexec/git-core/
 $HOME/opt/$release/bin
+$HOME/opt/$release/go/bin
 
 /usr/lib/jvm/jdk1.6.0_21/bin
 /opt/apache-ant-1.8.0/bin
