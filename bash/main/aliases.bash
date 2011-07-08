@@ -11,6 +11,7 @@
 alias cont='kill -CONT'
 alias stop='kill -STOP'
 alias ZZ='suspend'
+alias sce='cd ~/workspace/build_android_fbdevel-slayer_crespo-eng/'
 
 alias j='jobs -l'
 alias rehash='hash -r'

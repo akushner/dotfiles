@@ -35,4 +35,6 @@ $HOME/go/bin
 
 $HOME/android/android-sdk-linux_x86/platform-tools
 $HOME/home/akushner/android/android-sdk-linux_x86/tools
+
 $HOME/eclipse
+/usr/local/eclipse
