@@ -196,6 +196,13 @@ if [ -f  /usr/share/git-core/contrib/completion/git-prompt.sh ];then
 fi
       __git_ps1
 # Show current git branch or hg bookmark
+
+# set variable identifying the chroot you work in (used in the prompt
+# below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
 export PS1='\u@\h:\W {$(_dotfiles_scm_info)}\$ '
 
 case `hostname -f` in
@@ -214,14 +221,6 @@ esac
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-
-### START ssh-agent ###
-mkdir -p ~/.ssh/agent-state
-SSHPROFILE=~/.ssh/agent-state/${HOSTNAME}
-OLDSSHPROFILE=~/.ssh_agent_state_${HOSTNAME}
-if [[ -f ${OLDSSHPROFILE} ]] && ! [[ -f ${SSHPROFILE} ]] ; then
-  mv ${OLDSSHPROFILE} ${SSHPROFILE}
-fi
 
 ### START kerberos ###
 if [ -f /usr/kerberos/bin/klist ]; then
@@ -249,8 +248,7 @@ if [ 0 = 1 ];then
     export no_proxy='*.fb.com,*.facebook.com,*.tfbnw.net'
 fi
 
-function ldi()
-{
+ldi() {
   lds "(|(uid=$1)(cn=$1))" dn uid cn homeDirectory loginShell
   automountInformation
 }
