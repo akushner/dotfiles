@@ -28,15 +28,6 @@ if [ -f /usr/bin/lsb_release ];then
     export release=$(lsb_release -r | awk '{print $2}')
 fi
 
-if [ -d $HOME/opt/$release/go ];then
-    export GOROOT=$HOME/opt/$release/go
-elif [ -d $HOME/go ];then
-    export GOROOT=$HOME/go
-elif [ -d /usr/local/go ];then
-    export GOROOT=/usr/local/go
-fi
-export GOBIN=$GOROOT/bin
-
 # Need to get arround some of Noah's checks
 export LOGGED=t
 
