@@ -18,6 +18,8 @@ case "$OS" in
   sunos4.* )  dom=sunos4.1 ;;
   redhat* )   dom=redhat   ;;
   fedora* )   dom=fedora   ;;
+  debian* )   dom=debian   ;;
+  CentOS* )   dom=centos   ;;
 esac
 
 source_bash_init_file os/$dom
