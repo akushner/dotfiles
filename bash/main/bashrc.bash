@@ -69,6 +69,8 @@ export JAVA_HOME=/usr/lib/jvm/jdk1.5.0_2
 export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_21
 export PAGER=less
 
+export PYTHONPATH=$PYTHONPATH:/home/akushner/opt/5.2/lib/python
+
 if [ -h /usr/share/vim/vimcurrent ]; then
     export VIMRUNTIME=/usr/share/vim/vimcurrent
 elif [ -f /usr/share/vim/vim72 ]; then
