@@ -76,7 +76,7 @@ export HISTTIMEFORMAT='%a %T '
 export LESS='-R -i -e -M -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
 
 export EC2_HOME=~/.ec2
-export PATH=$PATH:$EC2_HOME/bin
+export PATH=$PATH:$EC2_HOME/bin:$GOROOT/bin
 export EC2_PRIVATE_KEY=pk-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
 export EC2_CERT=cert-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
 export PAGER=less
