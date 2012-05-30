@@ -23,13 +23,13 @@ $HOME/go/bin
 /home/engshare/svnroot/tfb/trunk/www/scripts/bin
 /home/engshare/admin/scripts/git
 /home/engshare/admin/scripts
-/home/akushner/www/scripts/bin
+$HOME/www/scripts/bin
 
 /usr/local/bin/
 /usr/local/sbin
 /usr/kerberos/bin
 /opt/local/bin
-/home/akushner/.ec2/bin
+$HOME/.ec2/bin
 
 /bin
 /usr/bin
@@ -39,13 +39,13 @@ $HOME/go/bin
 /usr/X11R6/bin
 /usr/bin/X11
 
-/u01/akushner/build/depot_tools
+$HOME/build/depot_tools
 
 /opt/electriccloud/electriccommander/bin
 /opt/ecloud/i686_Linux/bin
 
 $HOME/android/android-sdk-linux_x86/platform-tools
-$HOME/home/akushner/android/android-sdk-linux_x86/tools
+$HOME/android/android-sdk-linux_x86/tools
 
 $HOME/eclipse
 /usr/local/eclipse

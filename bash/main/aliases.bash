@@ -21,7 +21,6 @@ alias p='/usr/local/bin/python2.7'
 alias cont='kill -CONT'
 alias stop='kill -STOP'
 alias ZZ='suspend'
-alias sce='cd ~/workspace/build_android_fbdevel-slayer_crespo-eng/'
 
 alias j='jobs -l'
 alias rehash='hash -r'
@@ -41,9 +40,9 @@ fi
 
 alias fight='mpg123-alsa ~akushner/mp3/punk/One-inch-punch_fight.mp3'
 
+alias p=python
 alias porn='cd /u02/video/torrent_porn'
-alias ec='cd ~akushner/projects/work/EC'
-alias sd='ssh dev2069.snc6.facebook.com'
+alias sd='ssh dev3805.snc6.facebook.com'
 
 alias cal='cal -3' #show 3 months by default
 alias grep='GREP_COLOR="1;33;40" LANG=C grep --color=auto'
@@ -87,16 +86,12 @@ alias pdw=pwd
 alias xe3='xearth -stars -bigstars 20 -gamma 2.6 -day 100 -grid -pos "fixed 37 -122.08" &'
 
 alias fixbg='xloadimage -onroot ~/Personal/bg.gif'
-
-alias bbin='cd /home/akushner/work/Deploy/cash/build/bin'
 alias setroot='xloadimage -onroot  etc/bg.gif'
 
 alias sf-cqa-app01="ssh -t -x -C slot \"ssh sf-cqa-app01\""
 #alias s="ssh -i ~/.ssh/wagerworks_dsa -t -x -C slot \"ssh $1\""
 alias s="ssh -t -x dev2069.snc6.facebook.com \"ssh $1\""
 alias gk="nohup gkrellm -g +1208+470 &"
-
-alias rpms="cd /u01/kickstart/RedHat/RPMS"
 
 backup() {
 	echo Backing up $HOSTNAME
