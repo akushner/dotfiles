@@ -31,3 +31,33 @@ fi
 if [ -f .bashrc ]; then
 	. .bashrc
 fi
+
+ssh-add -l >/dev/null
+
+if [ $? == 2 ]; then
+  set -x
+  # No agent was forwarded, set one up.
+  hostname=$(/bin/hostname)
+  ssh_env="$HOME/.ssh/ssh-agent-env-$hostname"
+  pgrep -u $USER ssh-agent >/dev/null && {
+    echo "SSH: Finding existing agent";
+    . $ssh_env; }
+  pgrep -u $USER ssh-agent >/dev/null || {
+    echo "SSH: Starting new agent";
+    ssh-agent > $ssh_env;
+    . $ssh_env;
+    chmod 600 $ssh_env; }
+  set +x
+fi
+
+### START kerberos ###
+if [ -f /usr/kerberos/bin/klist ]; then
+    /usr/kerberos/bin/klist -s
+    if [[ $? -ne 0 ]]; then
+      /usr/kerberos/bin/kinit
+    fi
+fi
+
+### END kerberos ###
+
+# vim: set sw=2 ts=2 et:

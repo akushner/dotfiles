@@ -250,6 +250,7 @@ autocmd BufRead qpx.inc set filetype=make
 autocmd BufRead letter* set filetype=mail
 autocmd Filetype mail set fo -=l autoindent spell
 
+autocmd Filetype python set ts=2 shiftwidth=2 expandtab smartcase
 autocmd Filetype perl set ts=2 shiftwidth=2 expandtab
 autocmd Filetype php set ts=2 shiftwidth=2 expandtab
 autocmd Filetype sh set ts=4 shiftwidth=2 expandtab

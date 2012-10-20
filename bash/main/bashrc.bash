@@ -45,6 +45,17 @@ export PYTHONSTARTUP=~/.pythonrc
 #tty |egrep "^/dev/ptys/[0-9]*|^/dev/tty[0-9]" >& /dev/null && \
 #    export HISTFILE=~/.bash_histdir/.$(tty | sed -e 's/.*\///')
 
+HISTDIR=~/.bash_histdir
+[ ! -d $HISTDIR ] && mkdir $HISTDIR
+tty |egrep "^/dev/pts/[0-9]*|^/dev/tty[0-9]" >& /dev/null && {
+    h_tty=$(tty | sed -e 's/.*\///')
+    export HISTFILE=$HISTDIR/history.$(hostname).${h_tty}
+    for i in $HISTDIR/history.$(hostname).*
+    do
+        cat $i >> $HISTFILE
+    done
+    history -r
+}
 
 if [ -f ~/.aliases ];then
     . ~/.aliases
@@ -56,7 +67,12 @@ fi
 
 # Set some history options
 shopt -s histappend
+<<<<<<< HEAD
 export HISTCONTROL=ignoredups:erasedups:ignorespace
+=======
+export HISTCONTROL=erasedups
+export HISTIGNORE=ls:cd:df:du:fg
+>>>>>>> bash and vim fixes
 export HISTSIZE=5000
 export HISTTIMEFORMAT='%a %T '
 export LESS='-R -i -e -M -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
@@ -106,6 +122,7 @@ if [[ -f ${OLDSSHPROFILE} ]] && ! [[ -f ${SSHPROFILE} ]] ; then
   mv ${OLDSSHPROFILE} ${SSHPROFILE}
 fi
 
+<<<<<<< HEAD
 # Try to attach to a currently running agent
 #if [[ -e "${SSHPROFILE}" ]] ; then
 #  . "${SSHPROFILE}" > /dev/null
@@ -130,5 +147,32 @@ if [ -f /usr/kerberos/bin/klist ]; then
     fi
 fi
 ### END kerberos ###
+=======
+
+export GOROOT=$HOME/go
+export GOOS=linux
+export GOARCH=amd64
+export GOBIN=$HOME/bin
+
+export PATH=$PATH:$GOBIN
+
+ulimit -s 8192
+export LD_LIBRARY_PATH=/home/akushner/opt/5.2/lib
+
+# Added 08AUG2012
+# https://our.intern.facebook.com/intern/wiki/index.php/DevInternetProxy
+if [ 0 = 1 ];then
+    export http_proxy='http://172.31.255.99:8080'
+    export https_proxy="$http_proxy"
+    export no_proxy='*.fb.com,*.facebook.com,*.tfbnw.net'
+fi
+
+function ldi()
+{
+  lds "(|(uid=$1)(cn=$1))" dn uid cn homeDirectory loginShell
+  automountInformation
+}
+
+>>>>>>> bash and vim fixes
 
 # vim:tw=70 ft=sh sw=4
