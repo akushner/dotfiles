@@ -250,7 +250,7 @@ endif
 set background=light
 "colorscheme solarized
 
-
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd BufRead *.phpt set filetype=php
 autocmd BufRead *.qcf set filetype=lisp
 autocmd BufRead qpx.inc set filetype=make

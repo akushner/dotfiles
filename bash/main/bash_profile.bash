@@ -28,6 +28,13 @@ if [ -n "$PS1" ]; then
   IGNOREEOF=10
 fi
 
+keychain id_rsa id_dsa
+[ -z "$HOSTNAME" ] && HOSTNAME=‘uname -n‘
+[ -f $HOME/.keychain/$HOSTNAME-sh ] &&
+. $HOME/.keychain/$HOSTNAME-sh
+[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] &&
+. $HOME/.keychain/$HOSTNAME-sh-gpg
+
 if [ -f .bashrc ]; then
   . .bashrc
 fi
