@@ -2,6 +2,8 @@
   diff = auto
   status = auto
   branch = auto
+[commit]
+#  template1 = /home/engshare/admin/scripts/templates/git-commit-template.txt
 [alias]
   br = branch
   co = checkout

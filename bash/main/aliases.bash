@@ -16,13 +16,18 @@ alias sce='cd ~/workspace/build_android_fbdevel-slayer_crespo-eng/'
 alias j='jobs -l'
 alias rehash='hash -r'
 alias unexport='export -n'
-alias egrep='egrep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias grep='grep --color=auto'
-alias l='ls -CF'
-alias la='ls -A'
-alias ll='ls -alF'
-alias ls='ls --color=auto'
+
+
+if [[ $SINIT_MACHTYPE != x86-apple-darwin13.1.0 ]];then
+    alias ls='ls --color=auto'
+    alias egrep='egrep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias grep='grep --color=auto'
+    alias l='ls -CF'
+    alias la='ls -A'
+    alias ll='ls -alF'
+fi
+
 
 alias fight='mpg123-alsa ~akushner/mp3/punk/One-inch-punch_fight.mp3'
 

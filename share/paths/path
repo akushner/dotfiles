@@ -1,6 +1,17 @@
 $HOME/bin
 $HOME/opt/$release/libexec/git-core/
 $HOME/opt/$release/bin
+$HOME/opt/gradle/bin
+$HOME/opt/maven3/bin
+
+/opt/erlang/bin
+/opt/rabbitmq/bin
+
+# Haskell apps installed with Cabal
+$HOME/.cabal/bin
+
+# at FB
+/opt/facebook/bin
 $HOME/opt/$release/go/bin
 $HOME/go/bin
 
