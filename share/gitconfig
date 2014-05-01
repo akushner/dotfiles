@@ -13,6 +13,8 @@
   lol = log --pretty=oneline --abbrev-commit --graph --decorate
   lob = log --pretty=oneline --all --decorate --boundary --graph
   lg = log --boundary --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  xlg = log --boundary --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset%n%b' --date=short
+  lgnc = log --no-color --boundary --graph --pretty=format:'%h -%d %s (%cr) <%an : %ae>' --abbrev-commit --date=relative
   whois = "!sh -c 'git log -i -1 --pretty=\"format:%an <%ae>\n\" --author=\"$1\"' -"
   parent = remote -v
   edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
@@ -62,9 +64,13 @@
   excludesfile = /home/akushner/.gitignore
 [merge]
   stat = true
+	tool = vimdiff
 [rerere]
   enabled = true
 [diff]
   mnemonicprefix = true
+	tool = vimdiff
 
 # vim: set et sw=2 ts=2:
+[difftool]
+	prompt = false

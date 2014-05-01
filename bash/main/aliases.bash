@@ -8,6 +8,16 @@
 # Commentary:
 # Code:
 
+alias am='tmux attach -d -t mobile'
+alias afb='tmux attach -d -t fb'
+alias ldm='sudo /usr/facebook/ops/scripts/auth/ldap/fb_ldap_mgr.pl'
+alias lds='ldapsearch -x -b dc=thefacebook,dc=com'
+alias ldsa='ldapsearch -x -b dc=thefacebook,dc=com -W -D uid=phild,ou=People,dc=thefacebook,dc=com'
+alias ops='cd ~/opsfiles'
+alias chef='cd ~/opsfiles/chef'
+
+alias tbgs='tbgs --stripdir'
+alias p='/usr/local/bin/python2.7'
 alias cont='kill -CONT'
 alias stop='kill -STOP'
 alias ZZ='suspend'
@@ -118,6 +128,10 @@ backup() {
 	rsync -e ssh -uavx -P akushner vermin:/u01/backups/home
 	echo `pwd`
 	)
+}
+
+pw() {
+	getent passwd | grep -i $1
 }
 
 #source_local_bash_init_file aliases

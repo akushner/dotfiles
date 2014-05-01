@@ -2,6 +2,8 @@
 # bashrc
 #
 
+#echo "bad idea! ***** bad idea *****"
+
 if [ -z "$PS1" ]; then
     return
 fi
@@ -69,7 +71,7 @@ fi
 shopt -s histappend
 export HISTCONTROL=ignoredups:erasedups:ignorespace
 export HISTIGNORE=ls:cd:df:du:fg
-export HISTSIZE=5000
+export HISTSIZE=50000
 export HISTTIMEFORMAT='%a %T '
 export LESS='-R -i -e -M -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
 
@@ -77,28 +79,23 @@ export EC2_HOME=~/.ec2
 export PATH=$PATH:$EC2_HOME/bin
 export EC2_PRIVATE_KEY=pk-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
 export EC2_CERT=cert-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
-export JAVA_HOME=/usr/lib/jvm/jdk1.5.0_2
-export JAVA_HOME=/usr/lib/jvm/jdk1.6.0_21
 export PAGER=less
 
 export PYTHONPATH=$PYTHONPATH:/home/akushner/opt/5.2/lib/python
 
-if [ -h /usr/share/vim/vimcurrent ]; then
-    export VIMRUNTIME=/usr/share/vim/vimcurrent
-elif [ -f /usr/share/vim/vim72 ]; then
-    export VIMRUNTIME=/usr/share/vim/vim72
-fi
+#if [ -h /usr/share/vim/vimcurrent ]; then
+#    export VIMRUNTIME=/usr/share/vim/vimcurrent
+#elif [ -f /usr/share/vim/vim72 ]; then
+#    export VIMRUNTIME=/usr/share/vim/vim72
+#fi
 
-export VIM=~akushner/etc/init/vim
+#export VIM=~akushner/etc/init/vim
+#export VIM=~/etc/init/vim
 
 # Source Facebook definitions
 if [ -f /home/engshare/admin/scripts/master.bashrc ]; then
     . /home/engshare/admin/scripts/master.bashrc
 fi
-
-<<<<<<< HEAD
-case `hostname -d` in
-=======
 
 if [ -f /usr/facebook/scripts/db/dba_lib.sh ]; then
     . /usr/facebook/scripts/db/dba_lib.sh
@@ -194,11 +191,11 @@ fi
 # Show current git branch or hg bookmark
 export PS1='\u@\h:\W {$(_dotfiles_scm_info)}\$ '
 
-case `hostname -f` in
->>>>>>> Updates for macosx at fb
+case `hostname -d` in
     *facebook.com)
-        export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
+        export PS1='\n\[\e[1;37m\]|-- ${debian_chroot:+($debian_chroot)} \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;35m\]\w\[\e[0;39m\]\[\e[1;35m\]{$(_dotfiles_scm_info)}\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PERL5LIB="/home/akushner/etc/perl/lib/perl5/site_perl/5.8.8/"
+
         ;;
     *)
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
@@ -217,23 +214,6 @@ if [[ -f ${OLDSSHPROFILE} ]] && ! [[ -f ${SSHPROFILE} ]] ; then
   mv ${OLDSSHPROFILE} ${SSHPROFILE}
 fi
 
-<<<<<<< HEAD
-# Try to attach to a currently running agent
-#if [[ -e "${SSHPROFILE}" ]] ; then
-#  . "${SSHPROFILE}" > /dev/null
-#fi
-#
-## Make sure we succeeded
-#if [ -z "${SSH_AGENT_PID}" ] || ! (ps -p "${SSH_AGENT_PID}" -o ruser,comm | grep -E "^(${USER}|${UID}) " | grep -q " ssh-agent\ *$") ; then
-#  echo "Starting ssh-agent"
-#  ssh-agent -s > "$SSHPROFILE"
-#  . "${SSHPROFILE}" > /dev/null
-#
-#  echo "Adding ssh keys to ssh-agent"
-#  ssh-add
-#fi
-#### END ssh-agent ###
-
 ### START kerberos ###
 if [ -f /usr/kerberos/bin/klist ]; then
     /usr/kerberos/bin/klist -s
@@ -242,7 +222,6 @@ if [ -f /usr/kerberos/bin/klist ]; then
     fi
 fi
 ### END kerberos ###
-=======
 
 export GOROOT=$HOME/go
 export GOOS=linux
@@ -268,6 +247,6 @@ function ldi()
   automountInformation
 }
 
->>>>>>> bash and vim fixes
+#source $ADMIN_SCRIPTS/ssh/manage_agent.sh
 
 # vim:tw=70 ft=sh sw=4
