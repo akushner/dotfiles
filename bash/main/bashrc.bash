@@ -32,7 +32,10 @@ if [ -d $HOME/opt/$release/go ];then
     export GOROOT=$HOME/opt/$release/go
 elif [ -d $HOME/go ];then
     export GOROOT=$HOME/go
+elif [ -d /usr/local/go ];then
+    export GOROOT=/usr/local/go
 fi
+export GOBIN=$GOROOT/bin
 
 # Need to get arround some of Noah's checks
 export LOGGED=t
@@ -190,7 +193,7 @@ fi
 # Show current git branch or hg bookmark
 export PS1='\u@\h:\W {$(_dotfiles_scm_info)}\$ '
 
-case `hostname -d` in
+case `hostname -f` in
     *facebook.com)
         export PS1='\n\[\e[1;37m\]|-- ${debian_chroot:+($debian_chroot)} \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;35m\]\w\[\e[0;39m\]\[\e[1;35m\]{$(_dotfiles_scm_info)}\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PERL5LIB="/home/akushner/etc/perl/lib/perl5/site_perl/5.8.8/"
@@ -222,15 +225,11 @@ if [ -f /usr/kerberos/bin/klist ]; then
 fi
 ### END kerberos ###
 
-export GOROOT=$HOME/go
-export GOOS=linux
-export GOARCH=amd64
-export GOBIN=$HOME/bin
 
 export PATH=$PATH:$GOBIN
 
 ulimit -s 8192
-export LD_LIBRARY_PATH=/home/akushner/opt/5.2/lib
+#export LD_LIBRARY_PATH=/home/akushner/opt/5.2/lib
 
 # Added 08AUG2012
 # https://our.intern.facebook.com/intern/wiki/index.php/DevInternetProxy
