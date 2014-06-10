@@ -28,7 +28,7 @@ alias rehash='hash -r'
 alias unexport='export -n'
 
 
-if [[ $SINIT_MACHTYPE != x86-apple-darwin13.1.0 ]];then
+if [[ $SINIT_MACHTYPE != x86-apple-darwin* ]];then
     alias ls='ls --color=auto'
     alias egrep='egrep --color=auto'
     alias fgrep='fgrep --color=auto'
@@ -43,6 +43,7 @@ alias fight='mpg123-alsa ~akushner/mp3/punk/One-inch-punch_fight.mp3'
 
 alias p=python
 alias porn='cd /u02/video/torrent_porn'
+alias ec='cd ~akushner/projects/work/EC'
 alias sd='ssh dev1903.prn2.facebook.com'
 
 alias cal='cal -3' #show 3 months by default

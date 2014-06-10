@@ -186,6 +186,9 @@ On_IWhite='\e[0;107m'   # White
 
 if [ -f /mnt/vol/engshare/admin/scripts/scm-prompt ]; then
         . /mnt/vol/engshare/admin/scripts/scm-prompt
+elif [ -d /usr/local/git/contrib/completion ]; then
+    . /usr/local/git/contrib/completion/git-prompt.sh
+    . /usr/local/git/contrib/completion/git-completion.bash
 elif [ -f $sinit/bin/scm-prompt ];then
         . $sinit/bin/scm-prompt
 fi
@@ -227,6 +230,7 @@ fi
 
 
 export PATH=$PATH:$GOBIN
+export PATH="$HOME/Library/Haskell/bin:$PATH"
 
 ulimit -s 8192
 #export LD_LIBRARY_PATH=/home/akushner/opt/5.2/lib
