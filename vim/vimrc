@@ -10,6 +10,9 @@ set timeoutlen=300
 set nocp
 set autowrite
 
+set et
+set nohlsearch
+
 " vim clojure stuff
 let vimclojure#NailgunClient = "/u01/akushner/lisp/vimclojure-2.1.1/ng"
 let clj_want_gorilla = 1
@@ -153,7 +156,7 @@ set wildignore=*.o,*.fasl,*.swp,*.tmp
 
 " If in `Insert', `Replace' or `Visual' mode put a message on the last line
 set showmode
-set ts=8 
+set ts=4
 set sw=4
 set ruler
 set nobackup writebackup     	 " backup made, deleted afterwards
@@ -251,6 +254,7 @@ autocmd BufRead letter* set filetype=mail
 autocmd Filetype mail set fo -=l autoindent spell
 
 autocmd Filetype python set ts=2 shiftwidth=2 expandtab smartcase
+autocmd Filetype haskell set ts=2 shiftwidth=2 expandtab
 autocmd Filetype perl set ts=2 shiftwidth=2 expandtab
 autocmd Filetype php set ts=2 shiftwidth=2 expandtab
 autocmd Filetype sh set ts=4 shiftwidth=2 expandtab

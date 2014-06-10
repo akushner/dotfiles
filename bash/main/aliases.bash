@@ -18,6 +18,7 @@ alias chef='cd ~/opsfiles/chef'
 
 alias tbgs='tbgs --stripdir'
 alias p='/usr/local/bin/python2.7'
+alias fixntp='sudo /etc/init.d/ntp stop ; sleep 2; sudo ntpdate ntp.ubuntu.com'
 alias cont='kill -CONT'
 alias stop='kill -STOP'
 alias ZZ='suspend'
@@ -42,7 +43,7 @@ alias fight='mpg123-alsa ~akushner/mp3/punk/One-inch-punch_fight.mp3'
 
 alias p=python
 alias porn='cd /u02/video/torrent_porn'
-alias sd='ssh dev3805.snc6.facebook.com'
+alias sd='ssh dev1903.prn2.facebook.com'
 
 alias cal='cal -3' #show 3 months by default
 alias grep='GREP_COLOR="1;33;40" LANG=C grep --color=auto'

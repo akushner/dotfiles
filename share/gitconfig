@@ -58,7 +58,7 @@
   followparent = true
 
 [user]
-  name = Aaron Kushner
+	name = Aaron Kushner\n
 	email = akushner@fb.com
 [core]
   excludesfile = /home/akushner/.gitignore
@@ -71,6 +71,8 @@
   mnemonicprefix = true
 	tool = vimdiff
 
-# vim: set et sw=2 ts=2:
 [difftool]
 	prompt = false
+[push]
+	default = simple
+# vim: set et sw=2 ts=2:
