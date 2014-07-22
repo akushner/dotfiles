@@ -202,7 +202,7 @@ case `hostname -f` in
         export PERL5LIB="/home/akushner/etc/perl/lib/perl5/site_perl/5.8.8/"
 
         ;;
-    *)
+    *|*mbp*)
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         #export PS1='\h:\w\$ '
         ;;

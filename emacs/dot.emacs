@@ -128,6 +128,11 @@
 (autoload 'woman-find-file "woman"
   "Find, decode and browse a specific UN*X man-page file." t)
 
+;;(load "~/lib/emacs/haskell-mode/haskell-site-file")
+(add-to-list 'load-path "~/lib/emacs/haskell-mode/")
+(require 'haskell-mode-autoloads)
+(add-to-list 'Info-default-directory-list "~/lib/emacs/haskell-mode/")
+
 
 (defun search-google ()
   "Prompt for a query in the minibuffer, launch the web browser and query google."
@@ -136,7 +141,9 @@
     (browse-url (concat "http://www.google.com/search?q=" search))))
 
 
-(set-scroll-bar-mode 'right)
+;;(set-scroll-bar-mode 'right)
 (setq-default indent-tabs-mode nil)
 (setq isearch-lazy-highlight-initial-delay 10)
 
+(projectile-global-mode)
+(setq projectile-indexing-method 'native)
