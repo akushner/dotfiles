@@ -58,10 +58,10 @@
   followparent = true
 
 [user]
-	name = Aaron Kushner\n
+	name = Aaron Kushner
 	email = akushner@fb.com
 [core]
-  excludesfile = /home/akushner/.gitignore
+	excludesfile = ~/.gitignore_global
 	preloadindex = true
 [merge]
   stat = true
@@ -76,6 +76,13 @@
 	prompt = false
 [push]
 	default = simple
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
+
 # vim: set et sw=2 ts=2:
 [url "https://github.com/"]
 	insteadOf = git://github.com/

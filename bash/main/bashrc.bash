@@ -28,15 +28,6 @@ if [ -f /usr/bin/lsb_release ];then
     export release=$(lsb_release -r | awk '{print $2}')
 fi
 
-if [ -d $HOME/opt/$release/go ];then
-    export GOROOT=$HOME/opt/$release/go
-elif [ -d $HOME/go ];then
-    export GOROOT=$HOME/go
-elif [ -d /usr/local/go ];then
-    export GOROOT=/usr/local/go
-fi
-export GOBIN=$GOROOT/bin
-
 # Need to get arround some of Noah's checks
 export LOGGED=t
 
@@ -205,6 +196,13 @@ if [ -f  /usr/share/git-core/contrib/completion/git-prompt.sh ];then
 fi
       __git_ps1
 # Show current git branch or hg bookmark
+
+# set variable identifying the chroot you work in (used in the prompt
+# below)
+if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+    debian_chroot=$(cat /etc/debian_chroot)
+fi
+
 export PS1='\u@\h:\W {$(_dotfiles_scm_info)}\$ '
 
 case `hostname -f` in
@@ -218,19 +216,12 @@ case `hostname -f` in
     *|*mbp*)
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         #export PS1='\h:\w\$ '
+        source $ADMIN_SCRIPTS/ssh/manage_agent.sh
         ;;
 esac
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-
-### START ssh-agent ###
-mkdir -p ~/.ssh/agent-state
-SSHPROFILE=~/.ssh/agent-state/${HOSTNAME}
-OLDSSHPROFILE=~/.ssh_agent_state_${HOSTNAME}
-if [[ -f ${OLDSSHPROFILE} ]] && ! [[ -f ${SSHPROFILE} ]] ; then
-  mv ${OLDSSHPROFILE} ${SSHPROFILE}
-fi
 
 ### START kerberos ###
 if [ -f /usr/kerberos/bin/klist ]; then
@@ -240,7 +231,6 @@ if [ -f /usr/kerberos/bin/klist ]; then
     fi
 fi
 ### END kerberos ###
-
 
 #export GIT_PS1_SHOWDIRTYSTATE=1
 #export GIT_PS1_SHOWCOLORHINTS=1
@@ -258,12 +248,14 @@ if [ 0 = 1 ];then
     export no_proxy='*.fb.com,*.facebook.com,*.tfbnw.net'
 fi
 
-function ldi()
-{
+ldi() {
   lds "(|(uid=$1)(cn=$1))" dn uid cn homeDirectory loginShell
   automountInformation
 }
 
 ulimit -s 8192
+
+export VISUAL=vim
+export EDITOR=vim
 
 # vim:tw=70 ft=sh sw=4
