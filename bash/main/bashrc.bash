@@ -253,8 +253,11 @@ ldi() {
   automountInformation
 }
 
+<<<<<<< HEAD
 ulimit -s 8192
 
+=======
+>>>>>>> 889c8a5b0a05380b414cdb1678dfdb2d97b1207b
 export VISUAL=vim
 export EDITOR=vim
 
