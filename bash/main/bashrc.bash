@@ -169,16 +169,16 @@ On_ICyan='\e[0;106m'    # Cyan
 On_IWhite='\e[0;107m'   # White
 
 if [ -f /mnt/vol/engshare/admin/scripts/scm-prompt ]; then
-        . /mnt/vol/engshare/admin/scripts/scm-prompt
+    . /mnt/vol/engshare/admin/scripts/scm-prompt
 elif [ -d /usr/local/git/contrib/completion ]; then
     . /usr/local/git/contrib/completion/git-prompt.sh
     . /usr/local/git/contrib/completion/git-completion.bash
+elif [ -d  /usr/share/git-core/contrib/completion ];then
+    . /usr/share/git-core/contrib/completion/git-prompt.sh
+elif [ -d /opt/facebook/libexec/git-core/contrib/completion ]; then
+    . /opt/facebook/libexec/git-core/contrib/completion/git-prompt.sh
 elif [ -f $sinit/bin/scm-prompt ];then
         . $sinit/bin/scm-prompt
-fi
-
-if [ -f  /usr/share/git-core/contrib/completion/git-prompt.sh ];then
- source  /usr/share/git-core/contrib/completion/git-prompt.sh 
 fi
 
 # Show current git branch or hg bookmark
