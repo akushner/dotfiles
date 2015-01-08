@@ -62,7 +62,7 @@
 	email = akushner@fb.com
 [core]
 	excludesfile = ~/.gitignore_global
-	preloadindex = false
+	preloadindex = true
 [merge]
   stat = true
 	tool = vimdiff
@@ -84,3 +84,7 @@
 	trustExitCode = true
 
 # vim: set et sw=2 ts=2:
+[url "https://github.com/"]
+	insteadOf = git://github.com/
+[url "https://git.kernel.org/"]
+	insteadOf = git://git.kernel.org/

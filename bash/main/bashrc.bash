@@ -239,6 +239,8 @@ ldi() {
   automountInformation
 }
 
+ulimit -s 8192
+
 export VISUAL=vim
 export EDITOR=vim
 

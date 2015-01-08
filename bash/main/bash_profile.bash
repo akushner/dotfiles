@@ -39,6 +39,6 @@ if [ -f .bashrc ]; then
   . .bashrc
 fi
 
-source "$ADMIN_SCRIPTS"/ssh/manage_rootcanal.sh
+#source "$ADMIN_SCRIPTS"/ssh/manage_rootcanal.sh
 
 # vim: set sw=2 ts=2 et:
