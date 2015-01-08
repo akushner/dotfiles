@@ -264,4 +264,6 @@ function ldi()
   automountInformation
 }
 
+ulimit -s 8192
+
 # vim:tw=70 ft=sh sw=4

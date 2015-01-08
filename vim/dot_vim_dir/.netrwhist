@@ -1,5 +1,5 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =8
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/data/users/akushner/opsfiles-git/chef/cookbooks/fb_gvfs/recipes'
 let g:netrw_dirhist_2='/home/akushner/projects/scm/hook_tests/fbobjc_fake.git'
 let g:netrw_dirhist_3='/data/users/akushner/opsfiles-git/chef/cookbooks/fb_build'
@@ -8,3 +8,4 @@ let g:netrw_dirhist_5='/home/akushner/irs_audit'
 let g:netrw_dirhist_6='/home/akushner/projects/scm/hook_tests/instagram-server/pip-requirements'
 let g:netrw_dirhist_7='/tmp/x'
 let g:netrw_dirhist_8='/data/users/akushner/puma/arcanist/unit/engine'
+let g:netrw_dirhist_9='/data/users/akushner/fbcode/tools/scm_hooks/repos/master/.hg'
