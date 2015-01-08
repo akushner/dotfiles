@@ -9,9 +9,13 @@
 set timeoutlen=300
 set nocp
 set autowrite
+set nohlsearch
 
 set et
 set nohlsearch
+
+filetype plugin on
+filetype indent on
 
 " vim clojure stuff
 let vimclojure#NailgunClient = "/u01/akushner/lisp/vimclojure-2.1.1/ng"
@@ -246,7 +250,7 @@ endif
 set background=light
 "colorscheme solarized
 
-
+autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd BufRead *.phpt set filetype=php
 autocmd BufRead *.qcf set filetype=lisp
 autocmd BufRead qpx.inc set filetype=make
