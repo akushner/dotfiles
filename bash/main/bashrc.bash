@@ -251,4 +251,7 @@ function ldi()
 
 #source $ADMIN_SCRIPTS/ssh/manage_agent.sh
 
+export VISUAL=vim
+export EDITOR=vim
+
 # vim:tw=70 ft=sh sw=4
