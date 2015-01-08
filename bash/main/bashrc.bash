@@ -35,27 +35,12 @@ export LOGGED=t
 
 set-path
 
-export PYTHONSTARTUP=~/.pythonrc
-
-#[ ! -d ~/.bash_histdir ] && mkdir ~/.bash_histdir
-#tty |egrep "^/dev/ptys/[0-9]*|^/dev/tty[0-9]" >& /dev/null && \
-#    export HISTFILE=~/.bash_histdir/.$(tty | sed -e 's/.*\///')
-
 export PROMPT_COMMAND='history -a'
 
 # http://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
 HISTDIR=~/.bash_histdir
 [ ! -d $HISTDIR ] && mkdir $HISTDIR
-#tty |egrep "^/dev/pts/[0-9]*|^/dev/tty[0-9]" >& /dev/null && {
-#    h_tty=$(tty | sed -e 's/.*\///')
-#    for i in $HISTDIR/history.$(hostname).*
-#    do
-#        cat $i >> $HISTFILE
-#    done
-#    history -r
-#}
 
-export HISTFILE=$HISTDIR/history
 
 if [ -f ~/.aliases ];then
     . ~/.aliases
@@ -68,17 +53,18 @@ fi
 # Set some history options
 shopt -s histappend
 export HISTCONTROL=ignoredups:erasedups:ignorespace
+export HISTFILE=$HISTDIR/history
 export HISTIGNORE=ls:cd:df:du:fg
-export HISTSIZE=50000
+export HISTSIZE=500000
 export HISTTIMEFORMAT='%a %T '
 export LESS='-R -i -e -M -P%t?f%f :stdin .?pb%pb\%:?lbLine %lb:?bbByte %bb:-...'
 
 export EC2_HOME=~/.ec2
-export PATH=$PATH:$EC2_HOME/bin:$GOROOT/bin
 export EC2_PRIVATE_KEY=pk-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
 export EC2_CERT=cert-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
 export PAGER=less
 
+export PYTHONSTARTUP=~/.pythonrc
 export PYTHONPATH=$PYTHONPATH:/home/akushner/opt/5.2/lib/python
 
 #if [ -h /usr/share/vim/vimcurrent ]; then
@@ -194,7 +180,7 @@ fi
 if [ -f  /usr/share/git-core/contrib/completion/git-prompt.sh ];then
  source  /usr/share/git-core/contrib/completion/git-prompt.sh 
 fi
-      __git_ps1
+
 # Show current git branch or hg bookmark
 
 # set variable identifying the chroot you work in (used in the prompt
