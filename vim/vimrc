@@ -9,10 +9,7 @@
 set timeoutlen=300
 set nocp
 set autowrite
-set nohlsearch
-
 set et
-set nohlsearch
 
 filetype plugin on
 filetype indent on

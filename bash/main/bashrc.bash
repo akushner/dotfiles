@@ -4,6 +4,11 @@
 
 #echo "bad idea! ***** bad idea *****"
 
+#export PATH=/opt/git/libexec/git-core:$PATH:$HOME/bin
+#export LD_LIBRARY_PATH=/opt/git/lib
+#export GIT_EXEC_PATH=/opt/git/libexec/git-core
+#export GIT_TEMPLATE_DIR=/opt/git/share/git-core/templates
+
 if [ -z "$PS1" ]; then
     return
 fi
@@ -205,7 +210,7 @@ case `hostname -f` in
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(_dotfiles_scm_info " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         #export PS1='\h:\w\$ '
-        source $ADMIN_SCRIPTS/ssh/manage_agent.sh
+#        source $ADMIN_SCRIPTS/ssh/manage_agent.sh
         ;;
 esac
 
@@ -213,12 +218,12 @@ export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
 ### START kerberos ###
-if [ -f /usr/kerberos/bin/klist ]; then
-    /usr/kerberos/bin/klist -s
-    if [[ $? -ne 0 ]]; then
-      /usr/kerberos/bin/kinit
-    fi
-fi
+#if [ -f /usr/kerberos/bin/klist ]; then
+#    /usr/kerberos/bin/klist -s
+#    if [[ $? -ne 0 ]]; then
+#      /usr/kerberos/bin/kinit
+#    fi
+#fi
 ### END kerberos ###
 
 #export GIT_PS1_SHOWDIRTYSTATE=1
