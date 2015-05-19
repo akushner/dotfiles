@@ -17,6 +17,10 @@ set nohlsearch
 filetype plugin on
 filetype indent on
 
+execute pathogen#infect()
+runtime ftplugin/man.vim
+source $VIMRUNTIME/ftplugin/man.vim
+
 " vim clojure stuff
 let vimclojure#NailgunClient = "/u01/akushner/lisp/vimclojure-2.1.1/ng"
 let clj_want_gorilla = 1
@@ -270,7 +274,6 @@ autocmd BufReadPre viper,.viper set filetype=lisp
 " Catch trailing whitespaces
 " http://vim.wikia.com/wiki/Highlight_unwanted_spaces
 highlight ExtraWhitespace ctermbg=lightblue guibg=lightgreen
-"highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
 autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/

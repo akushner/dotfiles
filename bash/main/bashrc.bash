@@ -170,6 +170,8 @@ On_IWhite='\e[0;107m'   # White
 
 if [ -f /mnt/vol/engshare/admin/scripts/scm-prompt ]; then
     . /mnt/vol/engshare/admin/scripts/scm-prompt
+elif [ -f /opt/facebook/share/scm-prompt ]; then
+    source /opt/facebook/share/scm-prompt
 elif [ -d /usr/local/git/contrib/completion ]; then
     . /usr/local/git/contrib/completion/git-prompt.sh
     . /usr/local/git/contrib/completion/git-completion.bash
@@ -189,7 +191,7 @@ if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
-export PS1='\u@\h:\W {$(_dotfiles_scm_info)}\$ '
+export PS1='\u@\h:\W {$(_dotfiles_scm_info [%s])}\$ '
 
 case `hostname -f` in
     *facebook.com)
@@ -201,6 +203,7 @@ case `hostname -f` in
         ;;
     *|*mbp*)
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
+        export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(_dotfiles_scm_info " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         #export PS1='\h:\w\$ '
         source $ADMIN_SCRIPTS/ssh/manage_agent.sh
         ;;
@@ -245,3 +248,6 @@ export VISUAL=vim
 export EDITOR=vim
 
 # vim:tw=70 ft=sh sw=4
+
+PERL_MB_OPT="--install_base \"/Users/akushner/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/akushner/perl5"; export PERL_MM_OPT;
