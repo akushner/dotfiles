@@ -1,6 +1,7 @@
 $HOME/bin
 $HOME/opt/$release/libexec/git-core/
 $HOME/opt/$release/bin
+/Users/akushner/devtools/buck/bin
 /opt/facebook/bin
 
 /opt/apache-ant-1.8.0/bin
