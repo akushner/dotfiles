@@ -175,6 +175,8 @@ On_IWhite='\e[0;107m'   # White
 
 if [ -f /mnt/vol/engshare/admin/scripts/scm-prompt ]; then
     . /mnt/vol/engshare/admin/scripts/scm-prompt
+elif [ -f  /opt/facebook/hg/share/scm-prompt ]; then
+    . /opt/facebook/hg/share/scm-prompt
 elif [ -f /opt/facebook/share/scm-prompt ]; then
     source /opt/facebook/share/scm-prompt
 elif [ -d /usr/local/git/contrib/completion ]; then
@@ -271,6 +273,25 @@ ulimit -s 8192
 
 export VISUAL=vim
 export EDITOR=vim
+
+
+prep_cz() {
+  PATH_TO_ITCHEF="/Users/akushner/build/it-chef"
+  cd $PATH_TO_ITCHEF/cookbooks
+  sudo sed -i '' '/rest_timeout/d' /etc/chef/client.rb
+  sudo sed -i '' '/http_retry_count/d' /etc/chef/client.rb
+}
+
+cz() {
+  prep_cz
+  sudo chef-client -z -c /etc/chef/client.rb -j $PATH_TO_ITCHEF/tests/cpe_base_test.json
+  rm -rf ../nodes/
+}
+cz_debug() {
+  prep_cz
+  sudo chef-client -z -l debug -c /etc/chef/client.rb -j $PATH_TO_ITCHEF/tests/cpe_base_test.json
+  rm -rf ../nodes/
+}
 
 # vim:tw=70 ft=sh sw=4
 

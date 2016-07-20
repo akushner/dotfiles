@@ -3,6 +3,7 @@ $HOME/opt/$release/libexec/git-core/
 $HOME/opt/$release/bin
 /Users/akushner/devtools/buck/bin
 /opt/facebook/bin
+/opt/facebook/hg/bin
 
 /opt/apache-ant-1.8.0/bin
 /opt/apache-maven-3.0.3/bin

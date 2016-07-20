@@ -28,13 +28,7 @@ if [ -n "$PS1" ]; then
   IGNOREEOF=10
 fi
 
-# keychain id_rsa id_dsa
-#[ -z "$HOSTNAME" ] && HOSTNAME=‘uname -n‘
-#[ -f $HOME/.keychain/$HOSTNAME-sh ] &&
-#. $HOME/.keychain/$HOSTNAME-sh
-#[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] &&
-#. $HOME/.keychain/$HOSTNAME-sh-gpg
-#
+[ -z "$HOSTNAME" ] && HOSTNAME=‘uname -n‘
 if [ -f .bashrc ]; then
   . .bashrc
 fi
@@ -42,3 +36,8 @@ fi
 #source "$ADMIN_SCRIPTS"/ssh/manage_rootcanal.sh
 
 # vim: set sw=2 ts=2 et:
+
+# Setting PATH for Python 2.7
+# The orginal version is saved in .bash_profile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
+export PATH
