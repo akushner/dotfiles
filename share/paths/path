@@ -7,13 +7,7 @@ $HOME/opt/$release/bin
 /opt/homebrew/bin
 /Library/Frameworks/Python.framework/Versions/2.7/bin
 
-<<<<<<< 98dd1282d4ff5c15affec32a07c87610932c0318
-/opt/apache-ant-1.8.0/bin
-/opt/apache-maven-3.0.3/bin
-
 #/home/engshare/devtools/arcanist/bin
-=======
->>>>>>> updates from laptop
 #/home/engshare/svnroot/tfb/trunk/www/scripts/bin
 #/home/engshare/admin/scripts/git
 #/home/engshare/admin/scripts
