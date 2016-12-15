@@ -184,6 +184,8 @@ elif [ -d  /usr/share/git-core/contrib/completion ];then
     . /usr/share/git-core/contrib/completion/git-prompt.sh
 elif [ -d /opt/facebook/libexec/git-core/contrib/completion ]; then
     . /opt/facebook/libexec/git-core/contrib/completion/git-prompt.sh
+elif [ -d /opt/facebook/libexec/git-core/contrib/completion/git-prompt.sh ]; then
+    . /opt/facebook/libexec/git-core/contrib/completion/git-prompt.sh
 elif [ -f $sinit/bin/scm-prompt ];then
         . $sinit/bin/scm-prompt
 fi
@@ -215,7 +217,7 @@ fi
 export PS1='\u@\h:\W {$(_dotfiles_scm_info [%s])}\$ '
 
 case `hostname -f` in
-    *facebook.com)
+    *.facebook.com)
         #export PS1='\n\[\e[1;37m\]|-- ${debian_chroot:+($debian_chroot)} \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;35m\]\w\[\e[0;39m\]\[\e[1;35m\]{$(_dotfiles_scm_info)}\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PS1='\n\[\e[1;37m\]|-- ${debian_chroot:+($debian_chroot)}
         \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;35m\]\w\[\e[0;39m\]\[\e[1;35m\]{$(__git_ps1)}\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
@@ -224,7 +226,7 @@ case `hostname -f` in
 
         ;;
     *|*mbp*)
-        export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
+#        export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(_dotfiles_scm_info " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         #export PS1='\h:\w\$ '
 #        source $ADMIN_SCRIPTS/ssh/manage_agent.sh
