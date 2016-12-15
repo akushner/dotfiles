@@ -1,2 +1,7 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =0
+let g:netrw_dirhist_cnt =5
+let g:netrw_dirhist_1='/data/users/akushner/opsfiles-hg/chef/cookbooks/other/fb_mercurial/files/default/scripts/hooks/pretxnclose.d/t'
+let g:netrw_dirhist_2='/home/engshare/svnroot/tfb/trunk/www'
+let g:netrw_dirhist_3='/home/engshare/svnroot/tfb/trunk/www_admin029.prn2.facebook.com_1/flib/intern/codegen/signedsource'
+let g:netrw_dirhist_4='/data/users/akushner/facebook-hg-rpms/hgwatchman/hgwatchman'
+let g:netrw_dirhist_5='/usr/share/git-core/contrib/completion'

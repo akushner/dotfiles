@@ -40,7 +40,7 @@ export LOGGED=t
 
 set-path
 
-export PROMPT_COMMAND='history -a'
+#export PROMPT_COMMAND='history -a'
 
 # http://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
 HISTDIR=~/.bash_histdir
@@ -70,7 +70,7 @@ export EC2_CERT=cert-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
 export PAGER=less
 
 export PYTHONSTARTUP=~/.pythonrc
-export PYTHONPATH=$PYTHONPATH:/home/akushner/opt/5.2/lib/python
+#export PYTHONPATH=$PYTHONPATH:/home/akushner/opt/5.2/lib/python
 
 #if [ -h /usr/share/vim/vimcurrent ]; then
 #    export VIMRUNTIME=/usr/share/vim/vimcurrent
@@ -85,9 +85,9 @@ export PYTHONPATH=$PYTHONPATH:/home/akushner/opt/5.2/lib/python
 if [ -f /home/engshare/admin/scripts/master.bashrc ]; then
     . /home/engshare/admin/scripts/master.bashrc
 fi
-if [ -f /home/engshare/haskell/setup-env.sh ]; then
-    source /home/engshare/haskell/setup-env.sh
-fi
+#if [ -f /home/engshare/haskell/setup-env.sh ]; then
+#    source /home/engshare/haskell/setup-env.sh
+#fi
 
 if [ -f /usr/facebook/scripts/db/dba_lib.sh ]; then
     . /usr/facebook/scripts/db/dba_lib.sh
@@ -188,6 +188,22 @@ elif [ -f $sinit/bin/scm-prompt ];then
         . $sinit/bin/scm-prompt
 fi
 
+
+# Get prompt time
+function timer_start {
+  timer=${timer:-$SECONDS}
+}
+
+function timer_stop {
+  timer_show=$(($SECONDS - $timer))
+  unset timer
+}
+
+trap 'timer_start' DEBUG
+PROMPT_COMMAND=timer_stop
+
+#PS1='[last: ${timer_show}s][\w]$ '
+
 # Show current git branch or hg bookmark
 
 # set variable identifying the chroot you work in (used in the prompt
@@ -204,6 +220,7 @@ case `hostname -f` in
         export PS1='\n\[\e[1;37m\]|-- ${debian_chroot:+($debian_chroot)}
         \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;35m\]\w\[\e[0;39m\]\[\e[1;35m\]{$(__git_ps1)}\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PERL5LIB="/home/akushner/etc/perl/lib/perl5/site_perl/5.8.8/"
+        export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(_dotfiles_scm_info " (%s)")\[\e[0;39m\] \[\e[1;37m\] (last: ${timer_show}s) --|\[\e[0;39m\]\n\$ '
 
         ;;
     *|*mbp*)
@@ -247,6 +264,7 @@ ldi() {
   automountInformation
 }
 
+
 ulimit -s 8192
 
 export VISUAL=vim
@@ -254,5 +272,6 @@ export EDITOR=vim
 
 # vim:tw=70 ft=sh sw=4
 
-PERL_MB_OPT="--install_base \"/Users/akushner/perl5\""; export PERL_MB_OPT;
-PERL_MM_OPT="INSTALL_BASE=/Users/akushner/perl5"; export PERL_MM_OPT;
+#PERL_MB_OPT="--install_base \"/Users/akushner/perl5\""; export PERL_MB_OPT;
+#PERL_MM_OPT="INSTALL_BASE=/Users/akushner/perl5"; export PERL_MM_OPT;
+export HGPROF=stat
