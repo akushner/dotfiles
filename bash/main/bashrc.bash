@@ -71,7 +71,6 @@ export EC2_CERT=cert-KX4A5VTATRPTC6HDZROTBAXUD5MNLQHK.pem
 export PAGER=less
 
 export PYTHONSTARTUP=~/.pythonrc
-#export PYTHONPATH=$PYTHONPATH:/home/akushner/opt/5.2/lib/python
 
 #if [ -h /usr/share/vim/vimcurrent ]; then
 #    export VIMRUNTIME=/usr/share/vim/vimcurrent
@@ -221,7 +220,6 @@ export PS1='\u@\h:\W {$(_dotfiles_scm_info [%s])}\$ '
 
 case `hostname -f` in
     *.facebook.com)
-        #export PS1='\n\[\e[1;37m\]|-- ${debian_chroot:+($debian_chroot)} \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;35m\]\w\[\e[0;39m\]\[\e[1;35m\]{$(_dotfiles_scm_info)}\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PS1='\n\[\e[1;37m\]|-- ${debian_chroot:+($debian_chroot)}
         \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;35m\]\w\[\e[0;39m\]\[\e[1;35m\]{$(__git_ps1)}\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PERL5LIB="/home/akushner/etc/perl/lib/perl5/site_perl/5.8.8/"
@@ -232,21 +230,11 @@ case `hostname -f` in
 #        export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(__git_ps1 " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         export PS1='\n\[\e[1;37m\]|-- \[\e[1;32m\]\u\[\e[0;39m\]@\[\e[1;36m\]\h\[\e[0;39m\]:\[\e[1;33m\]\w\[\e[0;39m\]\[\e[1;35m\]$(_dotfiles_scm_info " (%s)")\[\e[0;39m\] \[\e[1;37m\]--|\[\e[0;39m\]\n\$ '
         #export PS1='\h:\w\$ '
-#        source $ADMIN_SCRIPTS/ssh/manage_agent.sh
         ;;
 esac
 
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-
-### START kerberos ###
-#if [ -f /usr/kerberos/bin/klist ]; then
-#    /usr/kerberos/bin/klist -s
-#    if [[ $? -ne 0 ]]; then
-#      /usr/kerberos/bin/kinit
-#    fi
-#fi
-### END kerberos ###
 
 #export GIT_PS1_SHOWDIRTYSTATE=1
 #export GIT_PS1_SHOWCOLORHINTS=1

@@ -33,19 +33,16 @@ if [ -f .bashrc ]; then
   . .bashrc
 fi
 
-#source "$ADMIN_SCRIPTS"/ssh/manage_rootcanal.sh
-
-# vim: set sw=2 ts=2 et:
-
 # Setting PATH for Python 2.7
 # The orginal version is saved in .bash_profile.pysave
-PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
-export PATH
+export PATH="/Library/Frameworks/Python.framework/Versions/2.7/bin:${PATH}"
 
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+#test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 # BEGIN: Block added by chef, to set environment strings
 # Please see https://fburl.com/AndroidProvisioning if you do not use bash
 # or if you would rather this bit of code 'live' somewhere else
 . ~/.fbchef/environment
 # END: Block added by chef
+
+# vim: set sw=2 ts=2 et:
