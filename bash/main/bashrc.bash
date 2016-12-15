@@ -41,6 +41,8 @@ export LOGGED=t
 
 set-path
 
+# After each command, append to the history file and reread it
+export PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND$'\n'}history -a; history -c; history -r"
 #export PROMPT_COMMAND='history -a'
 
 # http://unix.stackexchange.com/questions/1288/preserve-bash-history-in-multiple-terminal-windows
@@ -58,7 +60,7 @@ fi
 
 # Set some history options
 shopt -s histappend
-export HISTCONTROL=ignoredups:erasedups:ignorespace
+export HISTCONTROL=ignoredups:erasedups
 export HISTFILE=$HISTDIR/history
 export HISTIGNORE=ls:cd:df:du:fg
 export HISTSIZE=500000
