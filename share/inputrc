@@ -19,6 +19,7 @@
 # Never beep.  Possible values are `none', `visible', and `audible'.
 set bell-style none
 
+
 # The value for rl_completion_query_items; the threshold above which the
 # user is asked if he wants to see the possible completions.
 set completion-query-items 100
@@ -67,6 +68,7 @@ set show-all-if-ambiguous on
 # If set to `on', a character denoting a file's type is appended to the
 # filename when listing possible completions.
 set visible-stats on
+set colored-stats on
 
 ### Keymap settings
 

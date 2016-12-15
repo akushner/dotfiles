@@ -29,6 +29,7 @@ fi
 export sinit=$HOME/etc/init
 export sinit_local=$sinit/local
 
+
 if [ -f /usr/bin/lsb_release ];then
     export release=$(lsb_release -r | awk '{print $2}')
 fi
@@ -82,12 +83,14 @@ export PYTHONSTARTUP=~/.pythonrc
 #export VIM=~/etc/init/vim
 
 # Source Facebook definitions
-if [ -f /home/engshare/admin/scripts/master.bashrc ]; then
-    . /home/engshare/admin/scripts/master.bashrc
+if [[ $(uname -s) != Darwin ]]; then
+  if [ -f /home/engshare/admin/scripts/master.bashrc ]; then
+      . /home/engshare/admin/scripts/master.bashrc
+  fi
+  if [ -f /home/engshare/haskell/setup-env.sh ]; then
+      source /home/engshare/haskell/setup-env.sh
+  fi
 fi
-#if [ -f /home/engshare/haskell/setup-env.sh ]; then
-#    source /home/engshare/haskell/setup-env.sh
-#fi
 
 if [ -f /usr/facebook/scripts/db/dba_lib.sh ]; then
     . /usr/facebook/scripts/db/dba_lib.sh
@@ -173,9 +176,7 @@ On_IPurple='\e[0;105m'  # Purple
 On_ICyan='\e[0;106m'    # Cyan
 On_IWhite='\e[0;107m'   # White
 
-if [ -f /mnt/vol/engshare/admin/scripts/scm-prompt ]; then
-    . /mnt/vol/engshare/admin/scripts/scm-prompt
-elif [ -f  /opt/facebook/hg/share/scm-prompt ]; then
+if [ -f  /opt/facebook/hg/share/scm-prompt ]; then
     . /opt/facebook/hg/share/scm-prompt
 elif [ -f /opt/facebook/share/scm-prompt ]; then
     source /opt/facebook/share/scm-prompt
@@ -293,8 +294,13 @@ cz_debug() {
   rm -rf ../nodes/
 }
 
-# vim:tw=70 ft=sh sw=4
+PATH="/Users/akushner/perl5/bin${PATH:+:${PATH}}"; export PATH;
+PERL5LIB="/Users/akushner/perl5/lib/perl5${PERL5LIB:+:${PERL5LIB}}"; export PERL5LIB;
+PERL_LOCAL_LIB_ROOT="/Users/akushner/perl5${PERL_LOCAL_LIB_ROOT:+:${PERL_LOCAL_LIB_ROOT}}"; export PERL_LOCAL_LIB_ROOT;
+PERL_MB_OPT="--install_base \"/Users/akushner/perl5\""; export PERL_MB_OPT;
+PERL_MM_OPT="INSTALL_BASE=/Users/akushner/perl5"; export PERL_MM_OPT;
 
-#PERL_MB_OPT="--install_base \"/Users/akushner/perl5\""; export PERL_MB_OPT;
-#PERL_MM_OPT="INSTALL_BASE=/Users/akushner/perl5"; export PERL_MM_OPT;
+source $HOME/.cargo/env
 export HGPROF=stat
+
+# vim:tw=70 ft=sh sw=4
